@@ -20,31 +20,36 @@ module.exports = {
 
 				const token = jwt.sign({ id: user.id, adm: user.admin, superAdmin: user.super_admin }, config.secret)
 
-				res.status(200).json({ success: 'Login efetuado com sucesso', token: token })
+				return res.status(200).json({ success: 'Login efetuado com sucesso', token: token })
 			}
-			res.status(404).json({ error: "Usuário não encontrado" })
+			return res.status(404).json({ error: "Usuário não encontrado" })
 		} catch (e) {
-			res.status(500).json({ error: "Login failed" })
+			return res.status(500).json({ error: "Login failed" })
 		}
 	},
 
 	async createAdmin(req, res) {
-		const salt = bcrypt.genSaltSync(10)
+		try {
 
-		const newUser = {
-			username: req.body.username,
-			first_name: req.body.first_name,
-			last_name: req.body.last_name,
-			email: bcrypt.hashSync(req.body.email, salt),
-			cellphone: req.body.cellphone,
-			password: bcrypt.hashSync(req.body.password, salt),
-			admin: true,
-			created_at: new Date(req.body.created_at),
-			updated_at: new Date(req.body.updated_at)
+			const salt = bcrypt.genSaltSync(10)
+
+			const newUser = {
+				username: req.body.username,
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
+				email: bcrypt.hashSync(req.body.email, salt),
+				cellphone: req.body.cellphone,
+				password: bcrypt.hashSync(req.body.password, salt),
+				admin: true,
+				created_at: new Date(req.body.created_at),
+				updated_at: new Date(req.body.updated_at)
+			}
+
+			const createdUser = await User.create(newUser)
+
+			return res.status(201).json(createdUser)
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
 		}
-
-		const createdUser = await User.create(newUser)
-
-		res.status(201).json(createdUser)
 	}
 }
