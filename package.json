@@ -10,10 +10,13 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcrypt": "^5.1.0",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
-        "pg-hstore": "^2.3.3",
+        "express-jwt": "^7.7.5",
+        "jsonwebtoken": "^8.5.1",
         "pg": "^8.2.1",
+        "pg-hstore": "^2.3.3",
         "sequelize": "^5.21.13"
     },
     "devDependencies": {
