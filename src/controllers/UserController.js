@@ -2,10 +2,30 @@ const User = require('../models/User');
 require("dotenv/config");
 
 const bcrypt = require("bcrypt");
+var jwt = require("jsonwebtoken");
+
+const config = require("../config/auth");
 
 module.exports = {
 	async login(req, res) {
-		const user = await User.findOne({ where: { username } })
+		try {
+			const user = await User.findOne({ where: { username: req.body.username } })
+			if (user) {
+				const passwordValid = bcrypt.compareSync(req.body.password, user.password)
+				if (!passwordValid) {
+					res.status(401).json({
+						error: "Senha Inválida"
+					})
+				}
+
+				const token = jwt.sign({ id: user.id, adm: user.admin, superAdmin: user.super_admin }, config.secret)
+
+				res.status(200).json({ success: 'Login efetuado com sucesso', token: token })
+			}
+			res.status(404).json({ error: "Usuário não encontrado" })
+		} catch (e) {
+			res.status(500).json({ error: "Login failed" })
+		}
 	},
 
 	async createAdmin(req, res) {
