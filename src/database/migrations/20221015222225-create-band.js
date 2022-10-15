@@ -2,31 +2,33 @@
 
 module.exports = {
   up: async (queryInterface, DataTypes) => {
-    await queryInterface.createTable('user', {
+    await queryInterface.createTable('band', {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      username: {
+      name: {
         type: DataTypes.STRING(100),
         unique: true,
       },
-      first_name: { type: DataTypes.STRING(50), allowNull: true },
-      last_name: { type: DataTypes.STRING(50), allowNull: true },
       email: {
         type: DataTypes.STRING(150),
         unique: true,
       },
       cellphone: { type: DataTypes.STRING(50), allowNull: true },
-      password: DataTypes.STRING(150),
-      admin: DataTypes.BOOLEAN,
-      super_admin: DataTypes.BOOLEAN,
+      status: DataTypes.BOOLEAN,
+      owner: {
+        type: DataTypes.INTEGER,
+        references: { model: 'user', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }
     })
 
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('user');
+    return queryInterface.dropTable('band');
   }
 };

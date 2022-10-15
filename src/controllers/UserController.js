@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Band = require('../models/Band');
+
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 require("dotenv/config");
@@ -106,7 +108,7 @@ module.exports = {
 
 			}
 
-			const allUsers = await User.findAll({ raw: true });
+			const allUsers = await User.findAll({ raw: true, include: [{ model: Band, as: 'band' }] });
 
 			return res.status(200).json(allUsers);
 		} catch (e) {
