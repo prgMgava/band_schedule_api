@@ -44,9 +44,7 @@ module.exports = {
 				email: bcrypt.hashSync(req.body.email, salt),
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
-				admin: true,
-				created_at: new Date(req.body.created_at),
-				updated_at: new Date(req.body.updated_at)
+				admin: true
 			}
 
 			const createdUser = await User.create(newUser)

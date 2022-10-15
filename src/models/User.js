@@ -23,12 +23,17 @@ class User extends Model {
                 password: DataTypes.STRING(150),
                 admin: DataTypes.BOOLEAN,
                 super_admin: { type: DataTypes.BOOLEAN, defaultValue: false },
+
             },
             {
                 sequelize,
                 tableName: 'user'
             }
         );
+    }
+
+    static associate(models) {
+        this.hasOne(models.Band, { foreignKey: 'id', as: 'band' });
     }
 }
 

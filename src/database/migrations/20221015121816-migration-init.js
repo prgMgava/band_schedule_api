@@ -22,6 +22,8 @@ module.exports = {
       password: DataTypes.STRING(150),
       admin: DataTypes.BOOLEAN,
       super_admin: DataTypes.BOOLEAN,
+      created_at: DataTypes.DATE,
+      updated_at: DataTypes.DATE
     })
 
   },
