@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 require("dotenv/config");
 
 const bcrypt = require("bcrypt");
@@ -31,7 +33,7 @@ module.exports = {
 	async createAdmin(req, res) {
 		try {
 
-			const salt = bcrypt.genSaltSync(10)
+			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
 
 			const newUser = {
 				username: req.body.username,
@@ -51,5 +53,110 @@ module.exports = {
 		} catch (e) {
 			return res.status(500).json({ error: e.toString() })
 		}
+	},
+
+	async createMember(req, res) {
+		try {
+
+			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
+
+			const newUser = {
+				username: req.body.username,
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
+				email: bcrypt.hashSync(req.body.email, salt),
+				cellphone: req.body.cellphone,
+				password: bcrypt.hashSync(req.body.password, salt),
+				admin: false,
+			}
+
+			const createdUser = await User.create(newUser)
+
+			return res.status(201).json(createdUser)
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
+		}
+	},
+
+	async listAllUsers(req, res) {
+		try {
+			const name = req.query?.name
+
+			if (name) {
+				const allUsersFiltered = await User.findAll({
+					raw: true, where: {
+						[Op.or]: [{
+							username: {
+								[Op.iLike]: `%${name}%`
+							}
+						}, {
+							first_name: {
+								[Op.iLike]: `%${name}%`
+							}
+						},
+						{
+							last_name: {
+								[Op.iLike]: `%${name}%`
+							}
+						}
+						]
+					}
+				});
+				return res.status(200).json(allUsersFiltered);
+
+			}
+
+			const allUsers = await User.findAll({ raw: true });
+
+			return res.status(200).json(allUsers);
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
+		}
+	},
+
+	async listUserById(req, res) {
+		try {
+			const id = req.params.id
+			const user = await User.findByPk(id)
+
+			return res.status(200).json(user)
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
+		}
+	},
+
+	async updateUser(req, res) {
+		try {
+			const id = req.params.id
+			const user = await User.findByPk(id)
+
+			//TODO: password update with code via email
+			const { ...data } = req.body
+			const isOwner = user.id === req.userId
+
+			console.log(data)
+
+			if (!isOwner) {
+				return res.status(401).json({ error: 'Ação não autorizada' })
+			}
+			User.update(data, { where: { id: id } })
+
+			return res.status(200).json({ success: "Usuário atualizado" })
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
+		}
+	},
+
+	async deleteUser(req, res) {
+		const id = req.params.id
+		const user = await User.findByPk(id)
+
+		if (user.super_admin) {
+			return res.status(403).json({ error: "Super admin não pede ser deletado" })
+		}
+
+		User.destroy({ where: { id: id } })
+
+		return res.status(204).json({ success: "Usuário deletado" })
 	}
 }
