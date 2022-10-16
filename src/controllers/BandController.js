@@ -75,5 +75,47 @@ module.exports = {
 		} catch (e) {
 			return res.status(500).json({ error: e.toString() })
 		}
+	},
+
+	async updateBand(req, res) {
+		try {
+			const id = req.params.id
+			const band = await Band.findByPk(id)
+
+			if (!band) {
+				return res.status(404).json({ error: "Banda não encontrada" })
+			}
+
+			const { ...data } = req.body
+			console.log(req.isSuperAdm)
+			const isOwner = band.owner === req.userId || req.isSuperAdmin
+
+			if (!isOwner) {
+				return res.status(401).json({ error: 'Ação não autorizada' })
+			}
+			Band.update(data, { where: { id: id } })
+
+			return res.status(200).json({ success: "Banda atualizada" })
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
+		}
+	},
+
+	async deleteBand(req, res) {
+		try {
+
+			const id = req.params.id
+			const band = await Band.findByPk(id)
+
+			if (!band) {
+				return res.status(404).json({ error: "Banda não encontrada" })
+			}
+
+			Band.destroy({ where: { id: id } })
+
+			return res.status(204).json({ success: "Usuário deletado" })
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
+		}
 	}
 }

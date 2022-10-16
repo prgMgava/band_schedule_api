@@ -131,6 +131,10 @@ module.exports = {
 			const id = req.params.id
 			const user = await User.findByPk(id)
 
+			if (!user) {
+				return res.status(404).json({ error: 'Usuário não encontrado' })
+			}
+
 			//TODO: password update with code via email
 			const { ...data } = req.body
 			const isOwner = user.id === req.userId
@@ -151,6 +155,10 @@ module.exports = {
 
 			const id = req.params.id
 			const user = await User.findByPk(id)
+
+			if (!user) {
+				return res.status(404).json({ error: 'Usuário não encontrado' })
+			}
 
 			if (user.super_admin) {
 				return res.status(403).json({ error: "Super admin não pede ser deletado" })

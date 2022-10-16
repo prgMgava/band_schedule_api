@@ -19,6 +19,8 @@ routes.post("/band", [authJwt.verifyToken], BandController.createBand)
 routes.get("/band", [authJwt.verifyToken, authJwt.isSuperAdmin], BandController.listAllBands)
 routes.get("/band/:id", [authJwt.verifyToken, authJwt.isAdmin], BandController.listBandById)
 routes.get("/band/owner/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], BandController.listBandByUserId)
+routes.patch("/band/:id", [authJwt.verifyToken, authJwt.isAdmin], BandController.updateBand)
+routes.delete("/band/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], BandController.deleteBand)
 
 
 
