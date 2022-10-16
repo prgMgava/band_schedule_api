@@ -19,6 +19,7 @@ verifyToken = (req, res, next) => {
 				});
 			}
 			req.userId = decoded.id;
+			req.isSuperAdmin = decoded.superAdmin
 		});
 		next();
 	} catch (e) {
@@ -26,13 +27,13 @@ verifyToken = (req, res, next) => {
 	}
 };
 
-isAdmin = (req, res, next) => {
+isAdmin = async (req, res, next) => {
 	try {
 		User.findByPk(req.userId).then(user => {
-			const isAdmin = user?.admin
+			const isAdmin = user.admin
 
 			if (!isAdmin) {
-				return res.status(403).send({
+				res.status(403).send({
 					message: "Ação permitida apenas ao administrador!"
 				});
 			}
@@ -43,13 +44,10 @@ isAdmin = (req, res, next) => {
 	} catch (e) {
 		return res.status(500).json({ error: e.toString() })
 	}
-
-	next()
 };
 
 isSuperAdmin = async (req, res, next) => {
 	try {
-		const user1 = await User.findByPk(req.userId)
 		User.findByPk(req.userId).then(user => {
 			const isSuperAdmin = user.super_admin
 

@@ -16,6 +16,10 @@ routes.delete("/user/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], UserCont
 routes.post("/login", UserController.login);
 
 routes.post("/band", [authJwt.verifyToken], BandController.createBand)
+routes.get("/band", [authJwt.verifyToken, authJwt.isSuperAdmin], BandController.listAllBands)
+routes.get("/band/:id", [authJwt.verifyToken, authJwt.isAdmin], BandController.listBandById)
+routes.get("/band/owner/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], BandController.listBandByUserId)
+
 
 
 module.exports = routes;
