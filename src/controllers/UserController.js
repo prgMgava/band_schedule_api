@@ -84,7 +84,8 @@ module.exports = {
 
 			if (name) {
 				const allUsersFiltered = await User.findAll({
-					raw: true, where: {
+					include: { model: Band, as: 'band', attributes: ['id', 'name', 'email', 'status'] },
+					where: {
 						[Op.or]: [{
 							username: {
 								[Op.iLike]: `%${name}%`
@@ -106,7 +107,7 @@ module.exports = {
 
 			}
 
-			const allUsers = await User.findAll({ raw: true, include: [{ model: Band, as: 'band' }] });
+			const allUsers = await User.findAll({ include: { model: Band, as: 'band', attributes: ['id', 'name', 'email', 'status'] } });
 
 			return res.status(200).json(allUsers);
 		} catch (e) {
@@ -134,8 +135,6 @@ module.exports = {
 			const { ...data } = req.body
 			const isOwner = user.id === req.userId
 
-			console.log(data)
-
 			if (!isOwner) {
 				return res.status(401).json({ error: 'Ação não autorizada' })
 			}
@@ -148,15 +147,20 @@ module.exports = {
 	},
 
 	async deleteUser(req, res) {
-		const id = req.params.id
-		const user = await User.findByPk(id)
+		try {
 
-		if (user.super_admin) {
-			return res.status(403).json({ error: "Super admin não pede ser deletado" })
+			const id = req.params.id
+			const user = await User.findByPk(id)
+
+			if (user.super_admin) {
+				return res.status(403).json({ error: "Super admin não pede ser deletado" })
+			}
+
+			User.destroy({ where: { id: id } })
+
+			return res.status(204).json({ success: "Usuário deletado" })
+		} catch (e) {
+			return res.status(500).json({ error: e.toString() })
 		}
-
-		User.destroy({ where: { id: id } })
-
-		return res.status(204).json({ success: "Usuário deletado" })
 	}
 }

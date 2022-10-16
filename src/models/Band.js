@@ -18,9 +18,7 @@ class Band extends Model {
 					unique: true,
 				},
 				cellphone: { type: DataTypes.STRING(50), allowNull: true },
-				status: DataTypes.BOOLEAN,
-				created_at: DataTypes.DATE,
-				updated_at: DataTypes.DATE
+				status: DataTypes.BOOLEAN
 			},
 			{
 				sequelize,
@@ -30,7 +28,7 @@ class Band extends Model {
 	}
 
 	static associate(models) {
-		this.belongsTo(models.User, { foreignKey: 'id', as: "owner" })
+		this.belongsTo(models.User, { foreignKey: 'owner', as: "user", constraints: true })
 	}
 }
 

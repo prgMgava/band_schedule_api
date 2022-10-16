@@ -1,19 +1,21 @@
 const express = require("express");
 const { authJwt } = require("./middleware/index")
 
-const UserController = require('./controllers/UserController')
+const UserController = require('./controllers/UserController');
+const BandController = require("./controllers/BandController");
 
 const routes = express.Router();
 
-routes.get("/", (req, res) => res.json({ response: "Thats is right" }));
-routes.post("/user/adm", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.createAdmin);
-routes.post("/user/member", UserController.createMember);
 routes.get("/user", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.listAllUsers);
 routes.get("/user/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.listUserById)
+routes.post("/user/adm", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.createAdmin);
+routes.post("/user/member", UserController.createMember);
 routes.patch("/user/:id", [authJwt.verifyToken], UserController.updateUser)
 routes.delete("/user/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.deleteUser)
 
 routes.post("/login", UserController.login);
+
+routes.post("/band", [authJwt.verifyToken], BandController.createBand)
 
 
 module.exports = routes;
