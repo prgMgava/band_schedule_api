@@ -124,6 +124,11 @@ module.exports = {
 			const id = req.params.id
 			const user = await User.findByPk(id)
 
+			if (!user) {
+				return res.status(404).json({ error: 'Usuário não encontrado' })
+			}
+
+
 			return res.status(200).json(user)
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })

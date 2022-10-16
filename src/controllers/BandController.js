@@ -57,6 +57,10 @@ module.exports = {
 		try {
 			const id = req.params.id
 			const band = await Band.findByPk(id)
+			if (!band) {
+				return res.status(404).json({ error: 'Banda não encontrada' })
+			}
+
 			if (band.owner !== req.userId && !req.isSuperAdmin) {
 				return res.status(401).json({ error: "Ação não autorizada" })
 			}
@@ -70,6 +74,9 @@ module.exports = {
 		try {
 			const id = req.params.id
 			const band = await Band.findOne({ where: { owner: id } })
+			if (!band) {
+				return res.status(404).json({ error: 'Banda não encontrada' })
+			}
 
 			return res.status(200).json(band)
 		} catch (e) {
@@ -108,6 +115,12 @@ module.exports = {
 
 			if (!band) {
 				return res.status(404).json({ error: "Banda não encontrada" })
+			}
+
+			const isOwner = band.owner === req.userId || req.isSuperAdmin
+
+			if (!isOwner) {
+				return res.status(401).json({ error: 'Ação não autorizada' })
 			}
 
 			Band.destroy({ where: { id: id } })

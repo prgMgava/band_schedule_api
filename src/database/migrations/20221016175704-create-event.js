@@ -26,7 +26,7 @@ module.exports = {
       place: DataTypes.STRING(50),
       house_number: DataTypes.STRING(10),
       address_complement: DataTypes.STRING(150),
-      duration: DataTypes.INTEGER,
+      duration: DataTypes.FLOAT,
       date: DataTypes.DATE,
       created_at: DataTypes.DATE,
       updated_at: DataTypes.DATE
