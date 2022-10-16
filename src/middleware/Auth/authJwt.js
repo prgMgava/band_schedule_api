@@ -23,7 +23,7 @@ verifyToken = (req, res, next) => {
 		});
 		next();
 	} catch (e) {
-		return res.status(500).json({ error: e.toString() })
+		return res.status(500).json({ error: e.toString(), fields: e.fields })
 	}
 };
 
@@ -42,7 +42,7 @@ isAdmin = async (req, res, next) => {
 
 		next()
 	} catch (e) {
-		return res.status(500).json({ error: e.toString() })
+		return res.status(500).json({ error: e.toString(), fields: e.fields })
 	}
 };
 
@@ -61,7 +61,7 @@ isSuperAdmin = async (req, res, next) => {
 
 		next()
 	} catch (e) {
-		return res.status(500).json({ error: e.toString() })
+		return res.status(500).json({ error: e.toString(), fields: e.fields })
 	}
 };
 

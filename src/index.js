@@ -16,5 +16,14 @@ app.use(function (req, res, next) {
 	next();
 });
 app.use(routes);
+//TODO: handling error
+// app.use((error, request, response, next) => {
+// 	response.status(error.status || 500).json({
+// 		status: 'error',
+// 		error: {
+// 			message: error.message || 'some error',
+// 		},
+// 	});
+// })
 
 app.listen(process.env.API_PORT || 3333);

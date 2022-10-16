@@ -27,7 +27,7 @@ module.exports = {
 
 			return res.status(201).json(createdBand)
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -49,7 +49,7 @@ module.exports = {
 
 			return res.status(200).json(allBands)
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -62,7 +62,7 @@ module.exports = {
 			}
 			return res.status(200).json(band)
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -73,7 +73,7 @@ module.exports = {
 
 			return res.status(200).json(band)
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -87,7 +87,6 @@ module.exports = {
 			}
 
 			const { ...data } = req.body
-			console.log(req.isSuperAdm)
 			const isOwner = band.owner === req.userId || req.isSuperAdmin
 
 			if (!isOwner) {
@@ -97,7 +96,7 @@ module.exports = {
 
 			return res.status(200).json({ success: "Banda atualizada" })
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -115,7 +114,7 @@ module.exports = {
 
 			return res.status(204).json({ success: "Usuário deletado" })
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	}
 }

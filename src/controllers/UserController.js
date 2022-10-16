@@ -51,7 +51,11 @@ module.exports = {
 
 			return res.status(201).json(createdUser)
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			//TODO: handling errors correctly
+			// if (e instanceof Sequelize.UniqueConstraintError) {
+			// 	return res.status(409).json({ error: e.errors, fields: e.fields })
+			// }
+			return res.status(500).json({ error: e.toString(), fields: e.fields, fields: e.fields })
 		}
 	},
 
@@ -74,7 +78,7 @@ module.exports = {
 
 			return res.status(201).json(createdUser)
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -111,7 +115,7 @@ module.exports = {
 
 			return res.status(200).json(allUsers);
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -122,7 +126,7 @@ module.exports = {
 
 			return res.status(200).json(user)
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -146,7 +150,7 @@ module.exports = {
 
 			return res.status(200).json({ success: "Usuário atualizado" })
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
 
@@ -168,7 +172,7 @@ module.exports = {
 
 			return res.status(204).json({ success: "Usuário deletado" })
 		} catch (e) {
-			return res.status(500).json({ error: e.toString() })
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	}
 }
