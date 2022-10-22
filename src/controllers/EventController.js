@@ -13,7 +13,7 @@ module.exports = {
 			const user = await User.findByPk(req.userId, { include: { model: Band, as: 'band', attributes: ['id'] } })
 
 			const newEvent = {
-				name: req.body.name,
+				title: req.body.title,
 				cellphone: req.body.cellphone,
 				id_band: user.band.id || bandIdFromSuperAdmin,
 				date: req.body.date,
@@ -22,9 +22,13 @@ module.exports = {
 				state: req.body.state,
 				city: req.body.city,
 				place: req.body.place,
-				house_number: req.body.house_number,
-				address_complement: req.body.address_complement,
-				duration: req.body.duration,
+				addressNumber: req.body.addressNumber,
+				addressComplement: req.body.addressComplement,
+			}
+
+			const status = req.body.status
+			if (status) {
+				newEvent.status = status
 			}
 
 			console.log(newEvent)

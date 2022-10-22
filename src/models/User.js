@@ -13,8 +13,6 @@ class User extends Model {
                     type: DataTypes.STRING(100),
                     unique: true,
                 },
-                first_name: { type: DataTypes.STRING(50), allowNull: true },
-                last_name: { type: DataTypes.STRING(50), allowNull: true },
                 email: {
                     type: DataTypes.STRING(150),
                     unique: true,

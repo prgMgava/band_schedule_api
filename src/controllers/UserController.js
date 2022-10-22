@@ -39,8 +39,6 @@ module.exports = {
 
 			const newUser = {
 				username: req.body.username,
-				first_name: req.body.first_name,
-				last_name: req.body.last_name,
 				email: bcrypt.hashSync(req.body.email, salt),
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
@@ -66,8 +64,6 @@ module.exports = {
 
 			const newUser = {
 				username: req.body.username,
-				first_name: req.body.first_name,
-				last_name: req.body.last_name,
 				email: bcrypt.hashSync(req.body.email, salt),
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
@@ -88,19 +84,10 @@ module.exports = {
 
 			if (name) {
 				const allUsersFiltered = await User.findAll({
-					include: { model: Band, as: 'band', attributes: ['id', 'name', 'email', 'status'] },
+					include: { model: Band, as: 'band', attributes: ['id', 'name', 'email'] },
 					where: {
 						[Op.or]: [{
 							username: {
-								[Op.iLike]: `%${name}%`
-							}
-						}, {
-							first_name: {
-								[Op.iLike]: `%${name}%`
-							}
-						},
-						{
-							last_name: {
 								[Op.iLike]: `%${name}%`
 							}
 						}
@@ -111,7 +98,7 @@ module.exports = {
 
 			}
 
-			const allUsers = await User.findAll({ include: { model: Band, as: 'band', attributes: ['id', 'name', 'email', 'status'] } });
+			const allUsers = await User.findAll({ include: { model: Band, as: 'band', attributes: ['id', 'name', 'email'] } });
 
 			return res.status(200).json(allUsers);
 		} catch (e) {

@@ -19,7 +19,6 @@ module.exports = {
 				name: req.body.name,
 				email: bcrypt.hashSync(req.body.email, salt),
 				cellphone: req.body.cellphone,
-				status: true,
 				owner: req.userId
 			}
 

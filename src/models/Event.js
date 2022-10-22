@@ -9,20 +9,20 @@ class Event extends Model {
 					autoIncrement: true,
 					primaryKey: true,
 				},
-				name: DataTypes.STRING(100),
+				title: DataTypes.STRING(100),
 				cellphone: DataTypes.STRING(50),
-				date: {
+				startDate: {
 					type: DataTypes.DATE,
 				},
+				endDate: DataTypes.DATE,
 				street: DataTypes.STRING(50),
 				district: DataTypes.STRING(50),
 				state: DataTypes.STRING(2),
 				city: DataTypes.STRING(50),
 				place: DataTypes.STRING(50),
-				house_number: DataTypes.STRING(10),
-				address_complement: DataTypes.STRING(150),
+				addressNumber: DataTypes.STRING(10),
+				addressComplement: DataTypes.STRING(150),
 				status: { type: DataTypes.STRING(25), defaultValue: 'agendado' },
-				duration: DataTypes.FLOAT
 			},
 			{
 				sequelize,

@@ -8,7 +8,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
+      title: {
         type: DataTypes.STRING(100),
       },
       cellphone: { type: DataTypes.STRING(50), allowNull: true },
@@ -19,15 +19,15 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      startDate: DataTypes.DATE,
       street: DataTypes.STRING(50),
       district: DataTypes.STRING(50),
       state: DataTypes.STRING(2),
       city: DataTypes.STRING(50),
       place: DataTypes.STRING(50),
-      house_number: DataTypes.STRING(10),
-      address_complement: DataTypes.STRING(150),
-      duration: DataTypes.FLOAT,
-      date: DataTypes.DATE,
+      addressNumber: DataTypes.STRING(10),
+      addressComplement: DataTypes.STRING(150),
+      endDate: DataTypes.DATE,
       created_at: DataTypes.DATE,
       updated_at: DataTypes.DATE
     })
