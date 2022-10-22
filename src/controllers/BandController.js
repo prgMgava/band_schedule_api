@@ -99,6 +99,10 @@ module.exports = {
 				return res.status(404).json({ error: "Banda não encontrada" })
 			}
 
+			const bandName = await Band.findOne({ where: { name: req.body.name } })
+			if (bandName) {
+				return res.status(409).json({ error: "Nome de banda já existe" })
+			}
 			const { ...data } = req.body
 			const isOwner = band.owner === req.userId || req.isSuperAdmin
 
