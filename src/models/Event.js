@@ -11,17 +11,17 @@ class Event extends Model {
 				},
 				title: DataTypes.STRING(100),
 				cellphone: DataTypes.STRING(50),
-				startDate: {
+				start_date: {
 					type: DataTypes.DATE,
+
 				},
-				endDate: DataTypes.DATE,
+				end_date: DataTypes.DATE,
 				street: DataTypes.STRING(50),
 				district: DataTypes.STRING(50),
 				state: DataTypes.STRING(2),
 				city: DataTypes.STRING(50),
-				place: DataTypes.STRING(50),
-				addressNumber: DataTypes.STRING(10),
-				addressComplement: DataTypes.STRING(150),
+				address_number: DataTypes.STRING(10),
+				address_complement: DataTypes.STRING(150),
 				status: { type: DataTypes.STRING(25), defaultValue: 'agendado' },
 			},
 			{

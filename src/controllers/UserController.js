@@ -17,12 +17,12 @@ module.exports = {
 			if (user) {
 				const passwordValid = bcrypt.compareSync(req.body.password, user.password)
 				if (!passwordValid) {
-					res.status(401).json({
+					return res.status(401).json({
 						error: "Senha Inválida"
 					})
 				}
 
-				const token = jwt.sign({ id: user.id, adm: user.admin, superAdmin: user.super_admin }, config.secret)
+				const token = jwt.sign({ id: user.id, adm: user.admin, super_admin: user.super_admin }, config.secret)
 
 				return res.status(200).json({ success: 'Login efetuado com sucesso', token: token })
 			}

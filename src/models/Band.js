@@ -18,7 +18,6 @@ class Band extends Model {
 					unique: true,
 				},
 				cellphone: { type: DataTypes.STRING(50), allowNull: true },
-				status: DataTypes.BOOLEAN
 			},
 			{
 				sequelize,

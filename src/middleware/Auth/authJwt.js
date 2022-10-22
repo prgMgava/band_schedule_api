@@ -19,7 +19,7 @@ verifyToken = (req, res, next) => {
 				});
 			}
 			req.userId = decoded.id;
-			req.isSuperAdmin = decoded.superAdmin
+			req.isSuperAdmin = decoded.super_admin
 		});
 		next();
 	} catch (e) {

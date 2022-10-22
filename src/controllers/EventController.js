@@ -9,21 +9,21 @@ require("dotenv/config");
 module.exports = {
 	async createEvent(req, res) {
 		try {
-			const bandIdFromSuperAdmin = req.query.idBand
+			const bandIdFromSuperAdmin = req.query.id_band
 			const user = await User.findByPk(req.userId, { include: { model: Band, as: 'band', attributes: ['id'] } })
 
 			const newEvent = {
 				title: req.body.title,
 				cellphone: req.body.cellphone,
 				id_band: user.band.id || bandIdFromSuperAdmin,
-				date: req.body.date,
+				start_date: req.body.start_date,
+				end_date: req.body.end_date,
 				street: req.body.street,
 				district: req.body.district,
 				state: req.body.state,
 				city: req.body.city,
-				place: req.body.place,
-				addressNumber: req.body.addressNumber,
-				addressComplement: req.body.addressComplement,
+				address_number: req.body.address_number,
+				address_complement: req.body.address_complement,
 			}
 
 			const status = req.body.status
@@ -43,17 +43,17 @@ module.exports = {
 
 	async listAllEvents(req, res) {
 		try {
-			const startDate = req.query?.startDate ? new Date(req.query?.startDate) : new Date()
+			const start_date = req.query?.start_date ? new Date(req.query?.start_date) : new Date()
 			var oneYearFromNow = new Date();
 			oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-			const endDate = req.query?.endDate ? new Date(req.query.endDate) : oneYearFromNow
+			const end_date = req.query?.end_date ? new Date(req.query.end_date) : oneYearFromNow
 
 
-			if (req.query?.startDate || req.query?.endDate) {
+			if (req.query?.start_date || req.query?.end_date) {
 				const allEventsFiltered = await Event.findAll({
 					where: {
 						date: {
-							[Op.between]: [startDate, endDate]
+							[Op.between]: [start_date, end_date]
 						},
 
 					},
@@ -62,6 +62,7 @@ module.exports = {
 				return res.status(200).json(allEventsFiltered);
 			}
 			const allEvents = await Event.findAll({ include: { model: Band, as: 'band' } })
+			console.log('------------------------')
 
 			return res.status(200).json(allEvents)
 		} catch (e) {
