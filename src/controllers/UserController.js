@@ -167,6 +167,17 @@ module.exports = {
 		}
 	},
 
+	async listMember(req, res) {
+		try {
+			const members = await User.findAll({ where: { admin: false } })
+
+			return res.status(200).json(members)
+		} catch (e) {
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
+		}
+	},
+
+
 	async updateUser(req, res) {
 		try {
 			const id = req.params.id
