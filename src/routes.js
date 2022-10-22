@@ -8,6 +8,7 @@ const EventController = require("./controllers/EventController");
 const routes = express.Router();
 
 routes.get("/user", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.listAllUsers);
+routes.get("/user/adm", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.listAdm);
 routes.get("/user/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.listUserById)
 routes.post("/user/adm", [authJwt.verifyToken, authJwt.isSuperAdmin], UserController.createAdmin);
 routes.post("/user/member", UserController.createMember);
