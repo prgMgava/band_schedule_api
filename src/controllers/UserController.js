@@ -64,16 +64,18 @@ module.exports = {
 				return res.status(403).json({ error: "Username é obrigatório" })
 			}
 			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
-			const user = User.findOne({
+			const user = await User.findOne({
 				where: {
 					[Op.or]: [{
 						username: username
 					}, {
-						email: bcrypt.hashSync(email, salt)
+						email: bcrypt.hashSync(email || 'undefined', salt)
 					}
 					]
 				}
 			})
+
+			console.log(user)
 
 			if (user) {
 				return res.status(409).json({ error: "Username ou email já existe" })
@@ -81,7 +83,7 @@ module.exports = {
 
 			const newUser = {
 				username: username,
-				email: bcrypt.hashSync(email, salt),
+				email: email ? bcrypt.hashSync(email, salt) : null,
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
 				admin: false,

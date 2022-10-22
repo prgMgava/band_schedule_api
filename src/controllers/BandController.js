@@ -72,7 +72,7 @@ module.exports = {
 	async listBandByUserId(req, res) {
 		try {
 			const id = req.params.id
-			const band = await Band.findOne({ where: { owner: id } })
+			const band = await Band.findAll({ where: { owner: id } })
 			if (!band) {
 				return res.status(404).json({ error: 'Banda não encontrada' })
 			}
