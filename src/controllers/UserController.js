@@ -59,12 +59,29 @@ module.exports = {
 
 	async createMember(req, res) {
 		try {
-
+			const { username, email } = req.body
+			if (!username) {
+				return res.status(403).json({ error: "Username é obrigatório" })
+			}
 			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
+			const user = User.findOne({
+				where: {
+					[Op.or]: [{
+						username: username
+					}, {
+						email: bcrypt.hashSync(email, salt)
+					}
+					]
+				}
+			})
+
+			if (user) {
+				return res.status(409).json({ error: "Username ou email já existe" })
+			}
 
 			const newUser = {
-				username: req.body.username,
-				email: bcrypt.hashSync(req.body.email, salt),
+				username: username,
+				email: bcrypt.hashSync(email, salt),
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
 				admin: false,
