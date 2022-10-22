@@ -13,11 +13,18 @@ const config = require("../config/auth");
 module.exports = {
 	async createBand(req, res) {
 		try {
-
+			const { email, name } = req.body
+			if (!name) {
+				return res.status(403).json({ error: "Nome da banda é obrigatório" })
+			}
+			const band = await Band.findOne({ where: { name: name } })
+			if (band) {
+				return res.status(409).json({ error: 'Banda já cadastrada' })
+			}
 			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
 			const newBand = {
 				name: req.body.name,
-				email: bcrypt.hashSync(req.body.email, salt),
+				email: email ? bcrypt.hashSync(email, salt) : null,
 				cellphone: req.body.cellphone,
 				owner: req.userId
 			}
