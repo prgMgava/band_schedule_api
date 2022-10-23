@@ -3,7 +3,7 @@ const { authJwt } = require("./middleware/index")
 
 const UserController = require('./controllers/UserController');
 const BandController = require("./controllers/BandController");
-const EventController = require("./controllers/EventController");
+const AppointmentController = require("./controllers/AppointmentController");
 
 const routes = express.Router();
 
@@ -26,12 +26,12 @@ routes.patch("/band/:id", [authJwt.verifyToken, authJwt.isAdmin], BandController
 routes.delete("/band/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], BandController.deleteBand)
 
 
-routes.post("/event", [authJwt.verifyToken, authJwt.isAdmin], EventController.createEvent)
-routes.get("/event", [authJwt.verifyToken], EventController.listAllEvents)
-routes.get("/event/:id", [authJwt.verifyToken], EventController.listEventById)
-routes.get("/event/band/:id", [authJwt.verifyToken], EventController.listEventByBandId)
-routes.patch("/event/:id", [authJwt.verifyToken, authJwt.isAdmin], EventController.updateEvent)
-routes.delete("/event/:id", [authJwt.verifyToken, authJwt.isAdmin], EventController.deleteEvent)
+routes.post("/appointment", [authJwt.verifyToken, authJwt.isAdmin], AppointmentController.createAppointment)
+routes.get("/appointment", [authJwt.verifyToken], AppointmentController.listAllAppointments)
+routes.get("/appointment/:id", [authJwt.verifyToken], AppointmentController.listAppointmentById)
+routes.get("/appointment/band/:id", [authJwt.verifyToken], AppointmentController.listAppointmentByBandId)
+routes.patch("/appointment/:id", [authJwt.verifyToken, authJwt.isAdmin], AppointmentController.updateAppointment)
+routes.delete("/appointment/:id", [authJwt.verifyToken, authJwt.isAdmin], AppointmentController.deleteAppointment)
 
 
 
