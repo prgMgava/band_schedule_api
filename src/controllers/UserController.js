@@ -188,12 +188,19 @@ module.exports = {
 			}
 
 			//TODO: password update with code via email
-			const { ...data } = req.body
+			const { password, ...data } = req.body
 			const isOwner = user.id === req.userId
 
 			if (!isOwner) {
 				return res.status(401).json({ error: 'Ação não autorizada' })
 			}
+			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
+
+			if (password) {
+				const hashPassword = bcrypt.hashSync(req.body.password, salt)
+				data.password = hashPassword
+			}
+
 			User.update(data, { where: { id: id } })
 
 			return res.status(200).json({ success: "Usuário atualizado" })
