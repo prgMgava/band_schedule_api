@@ -2,7 +2,8 @@ const Appointment = require('../models/Appointment');
 const Band = require('../models/Band');
 const User = require('../models/User');
 
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
+const Label = require('../models/Label');
 const Op = Sequelize.Op;
 require("dotenv/config");
 
@@ -24,14 +25,13 @@ module.exports = {
 				city: req.body.city,
 				address_number: req.body.address_number,
 				address_complement: req.body.address_complement,
+				id_label: req.body.id_label
 			}
 
 			const status = req.body.status
 			if (status) {
 				newAppointment.status = status
 			}
-
-			console.log(newAppointment)
 
 			const createdAppointment = await Appointment.create(newAppointment)
 
@@ -58,7 +58,7 @@ module.exports = {
 				});
 				return res.status(200).json(allAppointmentsFiltered);
 			}
-			const allAppointments = await Appointment.findAll({ include: { model: Band, as: 'band' } })
+			const allAppointments = await Appointment.findAll({ include: [{ model: Band, as: 'band' }, { model: Label, as: 'label' }] })
 
 			return res.status(200).json(allAppointments)
 		} catch (e) {

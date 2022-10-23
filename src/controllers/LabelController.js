@@ -105,21 +105,15 @@ module.exports = {
 		try {
 
 			const id = req.params.id
-			const Label = await Label.findByPk(id)
+			const label = await Label.findByPk(id)
 
-			if (!Label) {
-				return res.status(404).json({ error: "Labela não encontrada" })
-			}
-
-			const isOwner = Label.owner === req.userId || req.isSuperAdmin
-
-			if (!isOwner) {
-				return res.status(401).json({ error: 'Ação não autorizada' })
+			if (!label) {
+				return res.status(404).json({ error: "Label não encontrada" })
 			}
 
 			Label.destroy({ where: { id: id } })
 
-			return res.status(204).json({ success: "Usuário deletado" })
+			return res.status(204).json({ success: "Label deletada com sucesso" })
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}

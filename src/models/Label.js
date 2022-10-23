@@ -26,7 +26,7 @@ class Label extends Model {
 	}
 
 	static associate(models) {
-		this.hasMany(models.Appointment, { foreignKey: 'id_appointment', as: 'appointment' });
+		this.hasMany(models.Appointment, { foreignKey: 'id', as: 'appointment' });
 	}
 }
 
