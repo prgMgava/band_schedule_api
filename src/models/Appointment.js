@@ -33,6 +33,7 @@ class Event extends Model {
 
 	static associate(models) {
 		this.belongsTo(models.Band, { foreignKey: 'id_band', as: 'band' });
+		this.belongsTo(models.Appointment, { foreignKey: 'id_label', as: 'label' })
 	}
 }
 

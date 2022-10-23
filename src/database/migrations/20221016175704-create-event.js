@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, DataTypes) => {
-    await queryInterface.createTable('event', {
+    await queryInterface.createTable('appointment', {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -16,6 +16,12 @@ module.exports = {
       id_band: {
         type: DataTypes.INTEGER,
         references: { model: 'band', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      id_label: {
+        type: DataTypes.INTEGER,
+        references: { model: 'label', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
@@ -34,6 +40,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('event');
+    return queryInterface.dropTable('appointment');
   }
 };
