@@ -16,7 +16,7 @@ module.exports = {
 			const newAppointment = {
 				title: req.body.title,
 				cellphone: req.body.cellphone,
-				id_band: user.band.id || bandIdFromSuperAdmin,
+				id_band: user.band?.id || req.body?.id_band,
 				start_date: req.body.start_date,
 				end_date: req.body.end_date,
 				street: req.body.street,
