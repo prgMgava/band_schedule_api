@@ -34,13 +34,13 @@ module.exports = {
 
 	async listAllLabels(req, res) {
 		try {
-			const name = req.query?.name
+			const title = req.query?.title
 
-			if (name) {
+			if (title) {
 				const allLabelsFiltered = await Label.findAll({
 					where: {
-						name: {
-							[Op.iLike]: `%${name}%`
+						title: {
+							[Op.iLike]: `%${title}%`
 						}
 					}
 				});
@@ -57,29 +57,12 @@ module.exports = {
 	async listLabelById(req, res) {
 		try {
 			const id = req.params.id
-			const Label = await Label.findByPk(id)
-			if (!Label) {
-				return res.status(404).json({ error: 'Labela não encontrada' })
+			const label = await Label.findByPk(id)
+			if (!label) {
+				return res.status(404).json({ error: 'Label não encontrada' })
 			}
 
-			if (Label.owner !== req.userId && !req.isSuperAdmin) {
-				return res.status(401).json({ error: "Ação não autorizada" })
-			}
-			return res.status(200).json(Label)
-		} catch (e) {
-			return res.status(500).json({ error: e.toString(), fields: e.fields })
-		}
-	},
-
-	async listLabelByUserId(req, res) {
-		try {
-			const id = req.params.id
-			const Label = await Label.findAll({ where: { owner: id } })
-			if (!Label) {
-				return res.status(404).json({ error: 'Labela não encontrada' })
-			}
-
-			return res.status(200).json(Label)
+			return res.status(200).json(label)
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
@@ -88,25 +71,31 @@ module.exports = {
 	async updateLabel(req, res) {
 		try {
 			const id = req.params.id
-			const Label = await Label.findByPk(id)
+			const label = await Label.findByPk(id)
 
-			if (!Label) {
-				return res.status(404).json({ error: "Labela não encontrada" })
+			if (!label) {
+				return res.status(404).json({ error: "Label não encontrada" })
 			}
 
-			const LabelName = await Label.findOne({ where: { name: req.body.name } })
-			if (LabelName) {
-				return res.status(409).json({ error: "Nome de Labela já existe" })
-			}
 			const { ...data } = req.body
-			const isOwner = Label.owner === req.userId || req.isSuperAdmin
-
-			if (!isOwner) {
-				return res.status(401).json({ error: 'Ação não autorizada' })
+			if (data.title) {
+				const labelName = await Label.findOne({ where: { title: data.title.toLowerCase() } })
+				if (labelName && labelName.id != id) {
+					return res.status(409).json({ error: "Nome de Label já existe" })
+				}
+				data.title = data.title.toLowerCase()
 			}
+
+			if (data.color) {
+				const labelColor = await Label.findOne({ where: { color: data.color } })
+				if (labelColor && labelColor.id != id) {
+					return res.status(409).json({ error: "Cor de Label já existe" })
+				}
+			}
+
 			Label.update(data, { where: { id: id } })
 
-			return res.status(200).json({ success: "Labela atualizada" })
+			return res.status(200).json({ success: "Label atualizada" })
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
