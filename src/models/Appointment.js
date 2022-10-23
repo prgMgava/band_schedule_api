@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 
-class Event extends Model {
+class Appointment extends Model {
 	static init(sequelize) {
 		super.init(
 			{
@@ -26,15 +26,15 @@ class Event extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'event'
+				tableName: 'appointment'
 			}
 		);
 	}
 
 	static associate(models) {
 		this.belongsTo(models.Band, { foreignKey: 'id_band', as: 'band' });
-		this.belongsTo(models.Appointment, { foreignKey: 'id_label', as: 'label' })
+		this.belongsTo(models.Label, { foreignKey: 'id_label', as: 'label' })
 	}
 }
 
-module.exports = Event;
+module.exports = Appointment;

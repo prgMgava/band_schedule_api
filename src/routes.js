@@ -4,6 +4,7 @@ const { authJwt } = require("./middleware/index")
 const UserController = require('./controllers/UserController');
 const BandController = require("./controllers/BandController");
 const AppointmentController = require("./controllers/AppointmentController");
+const LabelController = require("./controllers/LabelController");
 
 const routes = express.Router();
 
@@ -33,6 +34,11 @@ routes.get("/appointment/band/:id", [authJwt.verifyToken], AppointmentController
 routes.patch("/appointment/:id", [authJwt.verifyToken, authJwt.isAdmin], AppointmentController.updateAppointment)
 routes.delete("/appointment/:id", [authJwt.verifyToken, authJwt.isAdmin], AppointmentController.deleteAppointment)
 
+routes.post("/label", [authJwt.verifyToken, authJwt.isAdmin], LabelController.createLabel)
+routes.get("/label", [authJwt.verifyToken], LabelController.listAllLabels)
+routes.get("/label/:id", [authJwt.verifyToken], LabelController.listLabelById)
+routes.patch("/label/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], LabelController.updateLabel)
+routes.delete("/label/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], LabelController.deleteLabel)
 
 
 module.exports = routes;
