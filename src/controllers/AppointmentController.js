@@ -113,7 +113,39 @@ module.exports = {
 			}
 			Appointment.update(data, { where: { id: id } })
 
-			return res.status(200).json({ success: "Compromisso atualizad" })
+			return res.status(200).json({ success: "Compromisso atualizado" })
+		} catch (e) {
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
+		}
+	},
+
+	async updateAppointmentStatus(req, res) {
+		try {
+			const currentDate = req.query?.current_date
+			if (!currentDate) {
+				return res.status(500).json({ error: 'Informe uma data atual nos parâmetros' })
+			}
+			const appointments = await Appointment.findAll({
+				where: {
+					status: {
+						[Op.notLike]: '%concluido%'
+					},
+					end_date: {
+						[Op.lt]: currentDate
+					}
+				}
+			})
+
+			if (!appointments) {
+				return res.status(404).json({ error: "Nenhum compromisso encontrado" })
+			}
+
+			appointments.map(appointment => {
+				Appointment.update({ status: 'concluido' }, { where: { id: appointment.id } })
+			})
+
+
+			return res.status(200).json({ success: "Status atualizados" })
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}

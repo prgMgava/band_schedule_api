@@ -32,6 +32,7 @@ routes.get("/appointment", [authJwt.verifyToken], AppointmentController.listAllA
 routes.get("/appointment/:id", [authJwt.verifyToken], AppointmentController.listAppointmentById)
 routes.get("/appointment/band/:id", [authJwt.verifyToken], AppointmentController.listAppointmentByBandId)
 routes.patch("/appointment/:id", [authJwt.verifyToken, authJwt.isAdmin], AppointmentController.updateAppointment)
+routes.patch("/appointment", [authJwt.verifyToken, authJwt.isSuperAdmin], AppointmentController.updateAppointmentStatus)
 routes.delete("/appointment/:id", [authJwt.verifyToken, authJwt.isAdmin], AppointmentController.deleteAppointment)
 
 routes.post("/label", [authJwt.verifyToken, authJwt.isAdmin], LabelController.createLabel)
