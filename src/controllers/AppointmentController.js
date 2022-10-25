@@ -136,8 +136,8 @@ module.exports = {
 				}
 			})
 
-			if (!appointments) {
-				return res.status(404).json({ error: "Nenhum compromisso encontrado" })
+			if (!appointments.length) {
+				return res.status(200).json({ success: "Todos os compromisso já foram atualizados" })
 			}
 
 			appointments.map(appointment => {
@@ -145,7 +145,7 @@ module.exports = {
 			})
 
 
-			return res.status(200).json({ success: "Status atualizados" })
+			return res.status(200).json({ success: `Foram atualizados ${appointments.length} compromissos com sucesso`, amount: appointments.length })
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
