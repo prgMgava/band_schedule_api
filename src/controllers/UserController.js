@@ -138,7 +138,7 @@ module.exports = {
 
 			}
 
-			const allUsers = await User.findAll({ include: { model: Band, as: 'band', attributes: ['id', 'name', 'email'] } });
+			const allUsers = await User.findAll({ attributes: { exclude: ['password'] }, include: { model: Band, as: 'band', attributes: ['id', 'name', 'email'] } });
 
 			return res.status(200).json(allUsers);
 		} catch (e) {
@@ -149,7 +149,7 @@ module.exports = {
 	async listUserById(req, res) {
 		try {
 			const id = req.params.id
-			const user = await User.findByPk(id)
+			const user = await User.findByPk(id, { attributes: { exclude: ['password'] } })
 
 			if (!user) {
 				return res.status(404).json({ error: 'Usuário não encontrado' })
@@ -164,7 +164,7 @@ module.exports = {
 
 	async listAdm(req, res) {
 		try {
-			const admins = await User.findAll({ where: { admin: true } })
+			const admins = await User.findAll({ where: { admin: true }, attributes: { exclude: ['password'] } })
 
 			return res.status(200).json(admins)
 		} catch (e) {
@@ -174,14 +174,13 @@ module.exports = {
 
 	async listMember(req, res) {
 		try {
-			const members = await User.findAll({ where: { admin: false } })
+			const members = await User.findAll({ where: { admin: false }, attributes: { exclude: ['password'] } })
 
 			return res.status(200).json(members)
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
-
 
 	async updateUser(req, res) {
 		try {

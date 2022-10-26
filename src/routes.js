@@ -8,7 +8,7 @@ const LabelController = require("./controllers/LabelController");
 
 const routes = express.Router();
 
-routes.get("/user", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], UserController.listAllUsers);
+routes.get("/user", [authJwt.verifyToken, authJwt.verifyPermission], UserController.listAllUsers);
 routes.get("/user/adm", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], UserController.listAdm);
 routes.get("/user/member", [authJwt.verifyToken, authJwt.verifyPermission], UserController.listMember);
 routes.get("/user/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], UserController.listUserById)
