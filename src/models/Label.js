@@ -16,7 +16,9 @@ class Label extends Model {
 				color: {
 					type: DataTypes.STRING(20),
 					unique: true,
-				}
+				},
+				is_deleted: { type: DataTypes.BOOLEAN, defaultValue: false }
+
 			},
 			{
 				sequelize,

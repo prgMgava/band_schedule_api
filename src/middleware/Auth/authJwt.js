@@ -64,10 +64,30 @@ isSuperAdmin = async (req, res, next) => {
 	}
 };
 
+verifyPermission = async (req, res, next) => {
+	try {
+		User.findByPk(req.userId).then(user => {
+			const isDeleted = user.is_deleted
+
+			if (isDeleted) {
+				res.status(403).send({
+					message: "Você não tem mais acesso, entre em contato com o administrador!"
+				});
+			}
+			return;
+		});
+
+		next()
+	} catch (e) {
+		return res.status(500).json({ error: e.toString(), fields: e.fields })
+	}
+};
+
 const authJwt = {
 	verifyToken: verifyToken,
 	isSuperAdmin: isSuperAdmin,
-	isAdmin: isAdmin
+	isAdmin: isAdmin,
+	verifyPermission: verifyPermission
 };
 
 module.exports = authJwt;

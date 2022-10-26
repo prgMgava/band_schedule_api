@@ -14,6 +14,11 @@ module.exports = {
 	async login(req, res) {
 		try {
 			const user = await User.findOne({ where: { username: req.body.username } })
+			if (user.is_deleted) {
+				return res.status(403).json({
+					error: "Você não tem mais acesso. Entre em contato com o administrador"
+				})
+			}
 			if (user) {
 				const passwordValid = bcrypt.compareSync(req.body.password, user.password)
 				if (!passwordValid) {
@@ -189,11 +194,7 @@ module.exports = {
 
 			//TODO: password update with code via email
 			const { password, ...data } = req.body
-			const isOwner = user.id === req.userId
 
-			if (!isOwner) {
-				return res.status(401).json({ error: 'Ação não autorizada' })
-			}
 			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
 
 			if (password) {
@@ -223,9 +224,9 @@ module.exports = {
 				return res.status(403).json({ error: "Super admin não pede ser deletado" })
 			}
 
-			User.destroy({ where: { id: id } })
+			User.update({ is_deleted: true }, { where: { id: id } })
 
-			return res.status(204).json({ success: "Usuário deletado" })
+			return res.status(204).json({ success: "Usuário desativado" })
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}

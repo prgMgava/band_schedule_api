@@ -19,6 +19,11 @@ module.exports = {
 			if (label) {
 				return res.status(409).json({ error: 'Label já cadastrada' })
 			}
+			const colorLabel = await Label.findOne({ where: { color: color } })
+			if (colorLabel) {
+				return res.status(409).json({ error: 'Cor já cadastrada' })
+
+			}
 			const newLabel = {
 				title: labelEdited,
 				color: color
@@ -111,7 +116,7 @@ module.exports = {
 				return res.status(404).json({ error: "Label não encontrada" })
 			}
 
-			Label.destroy({ where: { id: id } })
+			Label.update({ is_deleted: true }, { where: { id: id } })
 
 			return res.status(204).json({ success: "Label deletada com sucesso" })
 		} catch (e) {

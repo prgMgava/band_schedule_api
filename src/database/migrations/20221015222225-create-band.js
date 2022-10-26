@@ -17,6 +17,7 @@ module.exports = {
         unique: true,
       },
       cellphone: { type: DataTypes.STRING(50), allowNull: true },
+      is_deleted: { type: DataTypes.BOOLEAN },
       owner: {
         type: DataTypes.INTEGER,
         references: { model: 'user', key: 'id' },

@@ -133,7 +133,7 @@ module.exports = {
 				return res.status(401).json({ error: 'Ação não autorizada' })
 			}
 
-			Band.destroy({ where: { id: id } })
+			Band.update({ is_deleted: true }, { where: { id: id } })
 
 			return res.status(204).json({ success: "Usuário deletado" })
 		} catch (e) {

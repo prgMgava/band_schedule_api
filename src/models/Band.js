@@ -18,6 +18,7 @@ class Band extends Model {
 					unique: true,
 				},
 				cellphone: { type: DataTypes.STRING(50), allowNull: true },
+				is_deleted: { type: DataTypes.BOOLEAN, defaultValue: false }
 			},
 			{
 				sequelize,
