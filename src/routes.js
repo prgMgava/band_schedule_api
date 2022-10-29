@@ -40,6 +40,6 @@ routes.get("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission], LabelC
 routes.patch("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], LabelController.updateLabel);
 routes.delete("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], LabelController.deleteLabel);
 
-routes.get("/", () => console.log("Nice"));
+routes.get("/", (req, res) => res.json({ message: "Nice" }));
 
 module.exports = routes;
