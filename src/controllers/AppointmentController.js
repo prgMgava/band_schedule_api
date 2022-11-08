@@ -30,9 +30,9 @@ module.exports = {
 				money: req.money,
 				company_name: req.company_name,
 				contractor: req.contractor,
-				company_cellphone:req.company_cellphone,
-				company_contact:req.company_contact,
-				company_email:req.company_email,
+				company_cellphone: req.company_cellphone,
+				company_contact: req.company_contact,
+				company_email: req.company_email,
 				emphasis: req.emphasis,
 				observations: req.observations,
 				creator: req.creator,
@@ -81,7 +81,7 @@ module.exports = {
 		try {
 			const id = req.params.id
 
-			
+
 			const appointment = await Appointment.findByPk(id, { include: { model: Band, as: 'band' } })
 
 
@@ -111,6 +111,7 @@ module.exports = {
 						id_band: {
 							[Op.eq]: id
 						}
+
 					},
 					include: { model: Band, as: 'band' }
 				});
