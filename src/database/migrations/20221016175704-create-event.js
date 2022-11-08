@@ -34,7 +34,18 @@ module.exports = {
       address_complement: DataTypes.STRING(150),
       end_date: DataTypes.DATE,
       created_at: DataTypes.DATE,
-      updated_at: DataTypes.DATE
+      updated_at: DataTypes.DATE,
+      event: DataTypes.STRING(20),
+      money: DataTypes.STRING(20),
+      company_name: DataTypes.STRING(200),
+      contractor: DataTypes.STRING(200),
+      company_cellphone:DataTypes.STRING(200),
+      company_contact:DataTypes.STRING(200),
+      company_email:DataTypes.STRING(200),
+      emphasis: DataTypes.STRING(200),
+      observations:DataTypes.STRING(200),
+			creator:DataTypes.STRING(200),
+
     })
 
   },

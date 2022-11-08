@@ -25,7 +25,18 @@ module.exports = {
 				city: req.body.city,
 				address_number: req.body.address_number,
 				address_complement: req.body.address_complement,
-				id_label: req.body.id_label
+				id_label: req.body.id_label,
+				event: req.event,
+				money: req.money,
+				company_name: req.company_name,
+				contractor: req.contractor,
+				company_cellphone:req.company_cellphone,
+				company_contact:req.company_contact,
+				company_email:req.company_email,
+				emphasis: req.emphasis,
+				observations: req.observations,
+				creator: req.creator,
+
 			}
 
 			const status = req.body.status
@@ -69,7 +80,11 @@ module.exports = {
 	async listAppointmentById(req, res) {
 		try {
 			const id = req.params.id
+
+			
 			const appointment = await Appointment.findByPk(id, { include: { model: Band, as: 'band' } })
+
+
 
 			if (!appointment) {
 				return res.status(404).json({ error: 'Compromisso não encontrado' })
@@ -84,6 +99,23 @@ module.exports = {
 	async listAppointmentByBandId(req, res) {
 		try {
 			const id = req.params.id
+			if (req.query?.start_date && req.query?.end_date) {
+				const allAppointmentsFiltered = await Appointment.findAll({
+					where: {
+						start_date: {
+							[Op.gt]: req.query?.start_date
+						},
+						end_date: {
+							[Op.lt]: req.query?.end_date
+						},
+						id_band: {
+							[Op.eq]: id
+						}
+					},
+					include: { model: Band, as: 'band' }
+				});
+				return res.status(200).json(allAppointmentsFiltered);
+			}
 			const appointment = await Appointment.findOne({ where: { id_band: id }, include: { model: Band, as: 'band' } })
 
 			if (!appointment) {
@@ -173,5 +205,5 @@ module.exports = {
 		} catch (e) {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
-	}
+	},
 }

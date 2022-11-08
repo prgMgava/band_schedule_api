@@ -22,7 +22,8 @@ module.exports = {
       super_admin: DataTypes.BOOLEAN,
       created_at: DataTypes.DATE,
       updated_at: DataTypes.DATE,
-      is_deleted: { type: DataTypes.BOOLEAN }
+      is_deleted: { type: DataTypes.BOOLEAN },
+      band_visibility: DataTypes.INTEGER
     })
 
   },
