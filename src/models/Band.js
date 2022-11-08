@@ -29,7 +29,7 @@ class Band extends Model {
 
 	static associate(models) {
 		this.hasMany(models.Appointment, { foreignKey: 'id_band', as: 'appointments' });
-		this.belongsToMany(models.User, { foreignKey: 'owner', as: "user", constraints: true });
+		this.belongsTo(models.User, { foreignKey: 'owner', as: "user", constraints: true });
 	}
 }
 

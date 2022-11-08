@@ -21,14 +21,16 @@ routes.post("/login", UserController.login);
 
 routes.post("/band", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], BandController.createBand);
 routes.get("/band", [authJwt.verifyToken, authJwt.verifyPermission], BandController.listAllBands);
-routes.get("/band/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], BandController.listBandById);
-routes.get("/band/owner/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], BandController.listBandByUserId);
+routes.get("/band/:id", [authJwt.verifyToken, authJwt.verifyPermission], BandController.listBandById);
+routes.get("/band/owner/:id", [authJwt.verifyToken, authJwt.verifyPermission], BandController.listBandByUserId);
 routes.patch("/band/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], BandController.updateBand);
 routes.delete("/band/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], BandController.deleteBand);
 
 routes.post("/appointment", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], AppointmentController.createAppointment);
 routes.get("/appointment", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listAllAppointments);
 routes.get("/appointment/:id", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listAppointmentById);
+routes.get("/appointment/owner/:id", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listMyAppointments);
+
 routes.get("/appointment/band/:id", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listAppointmentByBandId);
 routes.patch("/appointment/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], AppointmentController.updateAppointment);
 routes.patch("/appointment", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], AppointmentController.updateAppointmentStatus);

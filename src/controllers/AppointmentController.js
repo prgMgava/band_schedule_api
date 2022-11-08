@@ -117,7 +117,36 @@ module.exports = {
 				});
 				return res.status(200).json(allAppointmentsFiltered);
 			}
-			const appointment = await Appointment.findOne({ where: { id_band: id }, include: { model: Band, as: 'band' } })
+			const appointment = await Appointment.findAll({ where: { id_band: id }, include: { model: Band, as: 'band' } })
+
+			if (!appointment) {
+				return res.status(404).json({ error: 'Compromisso não encontrado' })
+			}
+
+			return res.status(200).json(appointment)
+		} catch (e) {
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
+		}
+	},
+
+	async listMyAppointments(req, res) {
+		try {
+			const id = req.params.id
+			if (req.query?.start_date && req.query?.end_date) {
+				const allAppointmentsFiltered = await Appointment.findAll({
+					where: {
+						start_date: {
+							[Op.gt]: req.query?.start_date
+						},
+						end_date: {
+							[Op.lt]: req.query?.end_date
+						}
+					},
+					include: { model: Band, as: 'band', where: { owner: id } }
+				});
+				return res.status(200).json(allAppointmentsFiltered);
+			}
+			const appointment = await Appointment.findAll({ include: { model: Band, as: 'band', where: { owner: id } } })
 
 			if (!appointment) {
 				return res.status(404).json({ error: 'Compromisso não encontrado' })
@@ -207,4 +236,6 @@ module.exports = {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
+
+
 }

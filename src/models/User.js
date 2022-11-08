@@ -32,7 +32,7 @@ class User extends Model {
     }
 
     static associate(models) {
-        this.hasOne(models.Band, { foreignKey: 'owner', as: 'band' });
+        this.hasMany(models.Band, { foreignKey: 'owner', as: 'band' });
     }
 }
 

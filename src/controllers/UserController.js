@@ -27,7 +27,7 @@ module.exports = {
 					})
 				}
 
-				const token = jwt.sign({ id: user.id, adm: user.admin, super_admin: user.super_admin }, config.secret)
+				const token = jwt.sign({ id: user.id, adm: user.admin, super_admin: user.super_admin, band_visibility: user.band_visibility }, config.secret)
 
 				return res.status(200).json({ success: 'Login efetuado com sucesso', token: token })
 			}
@@ -150,7 +150,7 @@ module.exports = {
 	async listUserById(req, res) {
 		try {
 			const id = req.params.id
-			const user = await User.findByPk(id, { attributes: { exclude: ['password'] } })
+			const user = await User.findByPk(id, { attributes: { exclude: ['password'] }, include: { model: Band, as: 'band' } })
 
 			if (!user) {
 				return res.status(404).json({ error: 'Usuário não encontrado' })
