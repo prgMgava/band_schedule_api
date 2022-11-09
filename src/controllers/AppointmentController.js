@@ -12,7 +12,6 @@ module.exports = {
 		try {
 			const bandIdFromSuperAdmin = req.query.id_band
 			const user = await User.findByPk(req.userId, { include: { model: Band, as: 'band', attributes: ['id'] } })
-
 			const newAppointment = {
 				title: req.body.title,
 				cellphone: req.body.cellphone,
@@ -26,18 +25,19 @@ module.exports = {
 				address_number: req.body.address_number,
 				address_complement: req.body.address_complement,
 				id_label: req.body.id_label,
-				event: req.event,
-				money: req.money,
-				company_name: req.company_name,
-				contractor: req.contractor,
-				company_cellphone: req.company_cellphone,
-				company_contact: req.company_contact,
-				company_email: req.company_email,
-				emphasis: req.emphasis,
-				observations: req.observations,
-				creator: req.creator,
-				expanse: req.expanse,
+				event: req.body.event,
+				money: req.body.money,
+				company_name: req.body.company_name,
+				contractor: req.body.contractor,
+				company_cellphone: req.body.company_cellphone,
+				company_contact: req.body.company_contact,
+				company_email: req.body.company_email,
+				emphasis: req.body.emphasis,
+				observations: req.body.observations,
+				creator: req.body.creator,
+				expanse: req.body.expanse,
 			}
+
 
 			const status = req.body.status
 			if (status) {
