@@ -21,12 +21,21 @@ VALUES
 
 INSERT INTO "label" (title, color, is_deleted)
 VALUES
-('maiusculas', '#FF0000', FALSE),
-('minusculas', '#ff5500', FALSE),
-('em negociação', '#FFFF00', FALSE),
-('show fechado', '#00FF00', FALSE),
-('participação', '#1E90FF', FALSE),
-('gravação', '#FF69B4', FALSE)
+('CHURRASQUINHO', '#f76060ff', FALSE),
+('CONFIRMADO', '#C4EAA7', FALSE),
+('RADIO/TV/LIVE', '#A1CEF4', FALSE),
+('ENSAIO INTERNO', '#F7AFF2', FALSE),
+('PARTICIPAÇÃO', '#e655b8ff', FALSE),
+('CONTRATO + SINAL', '#59F44E', FALSE),
+('RESERVADO', '#E1DFDF', FALSE),
+('GINGA', '#FEFE00', FALSE),
+('GRAVAÇÃO', '#EDFF02', FALSE),
+('LANÇ. PLATAFORMA DIGITAL', '#1AAEB3', FALSE),
+('LEMBRETES', '#FBE9AE', FALSE),
+('NEGOCIANDO', '#FEB583', FALSE),
+('OUTROS', '#3C49F4ff', FALSE),
+
+
 
 INSERT INTO appointment ("title", cellphone, status, id_band , "start_date" , "end_date", 
 street, district, state, city, "address_number" , "address_complement", id_label)

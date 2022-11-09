@@ -10,7 +10,6 @@ require("dotenv/config");
 module.exports = {
 	async createAppointment(req, res) {
 		try {
-			const bandIdFromSuperAdmin = req.query.id_band
 			const user = await User.findByPk(req.userId, { include: { model: Band, as: 'band', attributes: ['id'] } })
 			const newAppointment = {
 				title: req.body.title,

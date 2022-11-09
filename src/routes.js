@@ -11,7 +11,7 @@ const routes = express.Router();
 routes.get("/user", [authJwt.verifyToken, authJwt.verifyPermission], UserController.listAllUsers);
 routes.get("/user/adm", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], UserController.listAdm);
 routes.get("/user/member", [authJwt.verifyToken, authJwt.verifyPermission], UserController.listMember);
-routes.get("/user/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], UserController.listUserById);
+routes.get("/user/:id", [authJwt.verifyToken, authJwt.verifyPermission], UserController.listUserById);
 routes.post("/user/adm", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], UserController.createAdmin);
 routes.post("/user/member", UserController.createMember);
 routes.patch("/user/:id", [authJwt.verifyToken, authJwt.verifyPermission], UserController.updateUser);
