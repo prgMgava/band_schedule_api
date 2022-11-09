@@ -9,7 +9,7 @@ class Appointment extends Model {
 					autoIncrement: true,
 					primaryKey: true,
 				},
-				title: DataTypes.STRING(100),
+				title: DataTypes.STRING(5000),
 				cellphone: DataTypes.STRING(50),
 				start_date: {
 					type: DataTypes.DATE,
@@ -27,12 +27,13 @@ class Appointment extends Model {
 				money: DataTypes.STRING(20),
 				company_name: DataTypes.STRING(200),
 				contractor: DataTypes.STRING(200),
-				company_cellphone:DataTypes.STRING(200),
-				company_contact:DataTypes.STRING(200),
-				company_email:DataTypes.STRING(200),
-				emphasis: DataTypes.STRING(200),
-				observations:DataTypes.STRING(200),
-				creator:DataTypes.STRING(200),
+				company_cellphone: DataTypes.STRING(200),
+				company_contact: DataTypes.STRING(200),
+				company_email: DataTypes.STRING(200),
+				emphasis: DataTypes.STRING(5000),
+				observations: DataTypes.STRING(5000),
+				creator: DataTypes.STRING(200),
+				expanse: DataTypes.STRING(5000)
 			},
 			{
 				sequelize,

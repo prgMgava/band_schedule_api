@@ -36,7 +36,7 @@ module.exports = {
 				emphasis: req.emphasis,
 				observations: req.observations,
 				creator: req.creator,
-
+				expanse: req.expanse,
 			}
 
 			const status = req.body.status
@@ -236,6 +236,4 @@ module.exports = {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
-
-
 }
