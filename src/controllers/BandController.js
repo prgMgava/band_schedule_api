@@ -13,7 +13,7 @@ const config = require("../config/auth");
 module.exports = {
 	async createBand(req, res) {
 		try {
-			const { email, name } = req.body
+			const { email, name, owner } = req.body
 			if (!name) {
 				return res.status(403).json({ error: "Nome da banda é obrigatório" })
 			}
@@ -26,7 +26,7 @@ module.exports = {
 				name: req.body.name,
 				email: email ? bcrypt.hashSync(email, salt) : null,
 				cellphone: req.body.cellphone,
-				owner: req.userId
+				owner: owner || req.userId
 			}
 
 			const createdBand = await Band.create(newBand)
