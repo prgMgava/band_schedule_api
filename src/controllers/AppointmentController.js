@@ -257,7 +257,10 @@ module.exports = {
 						},
 						...filter
 					},
-					include: { model: Band, as: 'band' }
+					include: { model: Band, as: 'band' },
+					order: [
+						['start_date', 'DESC']
+					]
 				});
 				if (!allAppointments) {
 					return res.status(404).json({ error: 'Compromissos não encontrados' })
