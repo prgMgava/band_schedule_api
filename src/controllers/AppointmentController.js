@@ -235,4 +235,56 @@ module.exports = {
 			return res.status(500).json({ error: e.toString(), fields: e.fields })
 		}
 	},
+
+	async listMyAppointmentsAdvanced(req, res) {
+		try {
+			const id = req.params.id
+
+			const { data_inicial, data_final, categoria, artista, estado } = req.query
+			const filter = {}
+			categoria && (filter.id_label = categoria)
+			artista && (filter.id_band = artista)
+			estado && (filter.state = estado)
+
+			if (req.isSuperAdmin) {
+				const allAppointments = await Appointment.findAll({
+					where: {
+						start_date: {
+							[Op.gt]: data_inicial
+						},
+						end_date: {
+							[Op.lt]: data_final
+						},
+						...filter
+					},
+					include: { model: Band, as: 'band' }
+				});
+				if (!allAppointments) {
+					return res.status(404).json({ error: 'Compromissos não encontrados' })
+				}
+
+				return res.status(200).json(allAppointments);
+			}
+
+			const allAppointments = await Appointment.findAll({
+				where: {
+					start_date: {
+						[Op.gt]: data_inicial
+					},
+					end_date: {
+						[Op.lt]: data_final
+					},
+					...filter
+				},
+				include: { model: Band, as: 'band', where: { owner: id } },
+				order: [
+					['start_date', 'DESC']
+				]
+			});
+			return res.status(200).json(allAppointments);
+
+		} catch (e) {
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
+		}
+	},
 }

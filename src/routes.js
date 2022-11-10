@@ -28,9 +28,9 @@ routes.delete("/band/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJ
 
 routes.post("/appointment", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], AppointmentController.createAppointment);
 routes.get("/appointment", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listAllAppointments);
+routes.get("/appointment/:id/advanced", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listMyAppointmentsAdvanced);
 routes.get("/appointment/:id", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listAppointmentById);
 routes.get("/appointment/owner/:id", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listMyAppointments);
-
 routes.get("/appointment/band/:id", [authJwt.verifyToken, authJwt.verifyPermission], AppointmentController.listAppointmentByBandId);
 routes.patch("/appointment/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], AppointmentController.updateAppointment);
 routes.patch("/appointment", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], AppointmentController.updateAppointmentStatus);
