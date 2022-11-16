@@ -19,6 +19,10 @@ module.exports = {
 			}
 			const band = await Band.findOne({ where: { name: name } })
 			if (band) {
+				if (band.is_deleted) {
+					Band.update({ is_deleted: false, }, { where: { id: band.id } })
+					return res.status(200).json({ success: 'Banda/Artista recadastrada com sucesso' })
+				}
 				return res.status(409).json({ error: 'Banda já cadastrada' })
 			}
 			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))

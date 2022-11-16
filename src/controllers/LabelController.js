@@ -17,6 +17,10 @@ module.exports = {
 			const labelEdited = title.toLowerCase()
 			const label = await Label.findOne({ where: { title: labelEdited } })
 			if (label) {
+				if (label.is_deleted) {
+					Label.update({ is_deleted: false }, { where: { id: label.id } })
+					return res.status(200).json({ success: 'Label recadastrada com sucesso' })
+				}
 				return res.status(409).json({ error: 'Label já cadastrada' })
 			}
 			const colorLabel = await Label.findOne({ where: { color: color } })
