@@ -19,7 +19,7 @@ module.exports = {
 			if (label) {
 				if (label.is_deleted) {
 					Label.update({ is_deleted: false }, { where: { id: label.id } })
-					return res.status(200).json({ success: 'Label recadastrada com sucesso' })
+					return res.status(200).json(label)
 				}
 				return res.status(409).json({ error: 'Label já cadastrada' })
 			}

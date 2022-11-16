@@ -21,7 +21,7 @@ module.exports = {
 			if (band) {
 				if (band.is_deleted) {
 					Band.update({ is_deleted: false, }, { where: { id: band.id } })
-					return res.status(200).json({ success: 'Banda/Artista recadastrada com sucesso' })
+					return res.status(200).json(band)
 				}
 				return res.status(409).json({ error: 'Banda já cadastrada' })
 			}
