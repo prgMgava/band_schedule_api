@@ -2,12 +2,12 @@ INSERT INTO "user" (username, email, password, admin, "super_admin", cellphone, 
 VALUES ('superAdmin', 'tes@email.com', '1234', TRUE, TRUE, '2712345678',FALSE),
  ('admin1', 'tes1@email.com', '1234', TRUE, FALSE, '15123456789', FALSE),
  ('admin2', 'tes2@email.com', '1234', TRUE, FALSE, '9998765432', FALSE),
- ('admin3', 'tes3@email.com', '1234', TRUE, FALSE,'', FALSE)
+ ('admin3', 'tes3@email.com', '1234', TRUE, FALSE,'', FALSE);
  
  INSERT INTO "user" (username, email, password, admin, "super_admin", cellphone, is_deleted, band_visibility)
  VALUES ('musico', 'tes4@email.com', '1234', FALSE, FALSE, '5532165000',FALSE, 2);
 
-UPDATE "user" SET "password" = '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2'
+UPDATE "user" SET "password" = '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2';
 
 
 INSERT INTO band  ("name", email, "owner", cellphone, is_deleted)
@@ -57,7 +57,7 @@ VALUES
 'Bairro Republica', 'ES', 'Vitória', '123', 'Proximo a radio' ,4 ),
 ('Meu evento 6', '123456789', 'concluido', 5, '2022-10-03T13:18:00',
 '2022-10-03T15:18:00', 'Rua Alameda',
-'Bairro Republica', 'ES', 'Vitória', '123', 'Proximo a radio' ,4 )
+'Bairro Republica', 'ES', 'Vitória', '123', 'Proximo a radio' ,4 );
 
 INSERT INTO appointment ("title", cellphone, status, id_band , "start_date" , "end_date", 
 street, district, state, city, "address_number" , "address_complement", id_label, "event", "money", company_name, contractor, company_cellphone, company_contact, company_email, emphasis, observations, creator)

@@ -14,18 +14,18 @@ module.exports = {
 	async createBand(req, res) {
 		try {
 			const { email, name, owner } = req.body
+			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
 			if (!name) {
 				return res.status(403).json({ error: "Nome da banda é obrigatório" })
 			}
 			const band = await Band.findOne({ where: { name: name } })
 			if (band) {
 				if (band.is_deleted) {
-					Band.update({ is_deleted: false, }, { where: { id: band.id } })
-					return res.status(200).json(band)
+					const bandRecreated = Band.update({ is_deleted: false, email: email ? bcrypt.hashSync(email, salt) : null, owner: owner || req.userId, cellphone: req.body.cellphone }, { where: { id: band.id } })
+					return res.status(200).json(bandRecreated)
 				}
 				return res.status(409).json({ error: 'Banda já cadastrada' })
 			}
-			const salt = bcrypt.genSaltSync(parseInt(process.env.ENCRYPT_SALT))
 			const newBand = {
 				name: req.body.name,
 				email: email ? bcrypt.hashSync(email, salt) : null,
@@ -103,10 +103,6 @@ module.exports = {
 				return res.status(404).json({ error: "Banda não encontrada" })
 			}
 
-			const bandName = await Band.findOne({ where: { name: req.body.name } })
-			if (bandName) {
-				return res.status(409).json({ error: "Nome de banda já existe" })
-			}
 			const { ...data } = req.body
 			const isOwner = band.owner === req.userId || req.isSuperAdmin
 

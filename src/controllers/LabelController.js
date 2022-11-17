@@ -14,12 +14,12 @@ module.exports = {
 			if (!title || !color) {
 				return res.status(403).json({ error: "Nome e cor da Label é obrigatório" })
 			}
-			const labelEdited = title.toLowerCase()
+			const labelEdited = title.toUpperCase()
 			const label = await Label.findOne({ where: { title: labelEdited } })
 			if (label) {
 				if (label.is_deleted) {
-					Label.update({ is_deleted: false }, { where: { id: label.id } })
-					return res.status(200).json(label)
+					const labelRecreated = Label.update({ is_deleted: false, color: color }, { where: { id: label.id } })
+					return res.status(200).json(labelRecreated)
 				}
 				return res.status(409).json({ error: 'Label já cadastrada' })
 			}
