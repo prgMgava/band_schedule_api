@@ -1,13 +1,11 @@
 INSERT INTO "user" (username, email, password, admin, "super_admin", cellphone, is_deleted)
-VALUES ('superAdmin', 'tes@email.com', '1234', TRUE, TRUE, '2712345678',FALSE),
- ('admin1', 'tes1@email.com', '1234', TRUE, FALSE, '15123456789', FALSE),
- ('admin2', 'tes2@email.com', '1234', TRUE, FALSE, '9998765432', FALSE),
- ('admin3', 'tes3@email.com', '1234', TRUE, FALSE,'', FALSE);
+VALUES ('superAdmin', 'tes@email.com', '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2', TRUE, TRUE, '2712345678',FALSE),
+ ('admin1', 'tes1@email.com', '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2', TRUE, FALSE, '15123456789', FALSE),
+ ('admin2', 'tes2@email.com', '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2', TRUE, FALSE, '9998765432', FALSE),
+ ('admin3', 'tes3@email.com', '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2', TRUE, FALSE,'', FALSE);
  
  INSERT INTO "user" (username, email, password, admin, "super_admin", cellphone, is_deleted, band_visibility)
- VALUES ('musico', 'tes4@email.com', '1234', FALSE, FALSE, '5532165000',FALSE, 2);
-
-UPDATE "user" SET "password" = '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2';
+ VALUES ('musico', 'tes4@email.com', '$2b$10$Mr7b0LTr33H4rNfrfQf5OOS4WDkK6PHQEe5FfNSyp4DVPWA/hDYt2', FALSE, FALSE, '5532165000',FALSE, 2);
 
 
 INSERT INTO band  ("name", email, "owner", cellphone, is_deleted)

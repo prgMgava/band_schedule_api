@@ -108,7 +108,7 @@ module.exports = {
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
 				admin: false,
-				band_visibility: req.band_visibility
+				band_visibility: req.body.band_visibility
 			}
 
 			const createdUser = await User.create(newUser)
