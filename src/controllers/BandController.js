@@ -28,7 +28,7 @@ module.exports = {
 			}
 			const newBand = {
 				name: req.body.name,
-				email: email ? bcrypt.hashSync(email, salt) : null,
+				email: email,
 				cellphone: req.body.cellphone,
 				owner: owner || req.userId
 			}

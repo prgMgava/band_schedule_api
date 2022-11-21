@@ -62,7 +62,7 @@ module.exports = {
 
 			const newUser = {
 				username: username,
-				email: email ? bcrypt.hashSync(email, salt) : null,
+				email: email,
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
 				admin: true
@@ -104,7 +104,7 @@ module.exports = {
 
 			const newUser = {
 				username: username,
-				email: email ? bcrypt.hashSync(email, salt) : null,
+				email: email,
 				cellphone: req.body.cellphone,
 				password: bcrypt.hashSync(req.body.password, salt),
 				admin: false,
