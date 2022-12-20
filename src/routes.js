@@ -42,6 +42,6 @@ routes.get("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission], LabelC
 routes.patch("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], LabelController.updateLabel);
 routes.delete("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], LabelController.deleteLabel);
 
-routes.get("/", (req, res) => res.json({ message: "Nice, deploy auto success" }));
+routes.get("/", (req, res) => res.json({ message: "Nice, deploy auto success, pm2 success" }));
 
 module.exports = routes;
