@@ -3,12 +3,13 @@ var cors = require('cors')
 
 const express = require("express");
 const routes = require("./routes");
+const compression = require('compression');
 
 require("./database");
 
 const app = express();
 app.use(cors())
-
+app.use(compression())
 app.use(express.json());
 // app.use(function (req, res, next) {
 // 	res.header(
