@@ -1,15 +1,30 @@
 require("dotenv/config");
-var cors = require('cors')
+var cors = require("cors");
+var fs = require("fs");
+var http = require("http");
+var https = require("https");
+var privateKey = fs.readFileSync(
+  "/etc/ssl/private/nginx-selfsigned.key",
+  "utf8"
+);
+var certificate = fs.readFileSync(
+  "/etc/ssl/certs/nginx-selfsigned.crt",
+  "utf8"
+);
+var credentials = { key: privateKey, cert: certificate };
 
 const express = require("express");
 const routes = require("./routes");
-const compression = require('compression');
+const compression = require("compression");
 
 require("./database");
 
 const app = express();
-app.use(cors())
-app.use(compression())
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+app.use(cors());
+app.use(compression());
 app.use(express.json());
 // app.use(function (req, res, next) {
 // 	res.header(
@@ -28,5 +43,6 @@ app.use(routes);
 // 		},
 // 	});
 // })
-
-app.listen(process.env.API_PORT || 3333);
+httpServer.listen(3332);
+httpsServer.listen(3333);
+//app.listen(process.env.API_PORT || 3333);
