@@ -16,6 +16,4 @@ gerar relatorios , imprimir ou exportar csv
 
 - Como usuario recebo alertas ou notificacoes de contas a vencer ou a serem cobradas;
 
-- Notas fiscais armazenar???
-
 FASE 2 - MODELAGEM
