@@ -5,6 +5,8 @@ const UserController = require("./controllers/UserController");
 const BandController = require("./controllers/BandController");
 const AppointmentController = require("./controllers/AppointmentController");
 const LabelController = require("./controllers/LabelController");
+const CheckoutController = require("./controllers/CheckoutController");
+
 
 const routes = express.Router();
 
@@ -42,6 +44,12 @@ routes.get("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission], LabelC
 routes.patch("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], LabelController.updateLabel);
 routes.delete("/label/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], LabelController.deleteLabel);
 
-routes.get("/", (req, res) => res.json({ message: "Nice, deploy auto success, pm2 success" }));
+routes.post("/checkout", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], CheckoutController.createCheckout);
+routes.get("/checkout", [authJwt.verifyToken, authJwt.verifyPermission], CheckoutController.listAllCheckouts);
+routes.get("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission], CheckoutController.listCheckoutById);
+routes.get("/checkout/band/:id_band", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], CheckoutController.listCheckoutByIdBand);
+routes.patch("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], CheckoutController.updateCheckout);
+routes.delete("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], CheckoutController.deleteCheckout);
+routes.get("/", (req, res) => res.json({ message: "Nice, last update - checkout finances control" }));
 
 module.exports = routes;
