@@ -33,14 +33,6 @@ app.use(routes);
 // 	});
 // })
 
-const sslServer = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
-	rejectUnauthorized: false,
-      requestCert: true,
-      agent: false
-}, app)
-
 //sslServer.listen(3333)
 
 app.listen(process.env.API_PORT || 3333);

@@ -16,7 +16,7 @@ class Checkout extends Model {
 					type: DataTypes.INTEGER,
 				},
                 description: {
-					type: DataTypes.STRING(5000),
+					type: DataTypes.TEXT,
 				},
                 date: {
 					type: DataTypes.DATE,
@@ -36,7 +36,7 @@ class Checkout extends Model {
 
 	static associate(models) {
 		//this.hasOne(models.Appointment, { foreignKey: 'id', as: 'appointment' });
-        this.hasOne(models.Band, { foreignKey: 'id', as: 'band' });
+		this.belongsTo(models.Band, { foreignKey: 'id_band', as: 'band' });
 	}
 }
 

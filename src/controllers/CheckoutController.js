@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Checkout = require('../models/Checkout');
+const Band = require('../models/Band');
 
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
@@ -11,6 +12,7 @@ module.exports = {
 	async createCheckout(req, res) {
 		try {
 			const { value, owner, type } = req.body
+			
 			if (!value || !owner || !type) {
 				return res.status(403).json({ error: "Valor, tipo e reponsável do Checkout é obrigatório" })
 			}
@@ -47,11 +49,12 @@ module.exports = {
 						id_band: {
 							[Op.eq]: idBand
 						}
-					}
+					},
+					include: [{ model: Band, as: 'band' }]
 				});
-				return res.status(200).json(allCheckoutsFiltered);
+				return res.status(200).json(allCheckoutsFiltered,);
 			}
-			const allCheckouts = await Checkout.findAll()
+			const allCheckouts = await Checkout.findAll({include: [{ model: Band, as: 'band' }]})
 
 			return res.status(200).json(allCheckouts)
 		} catch (e) {
