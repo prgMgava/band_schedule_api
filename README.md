@@ -17,3 +17,36 @@ gerar relatorios , imprimir ou exportar csv
 - Como usuario recebo alertas ou notificacoes de contas a vencer ou a serem cobradas;
 
 FASE 2 - MODELAGEM
+
+FASE 3 - Use cases Back end:
+https://www.treasy.com.br/blog/demonstrativo-de-fluxo-de-caixa-planilha/
+
+Fase 4 - Wireframes front end
+modal,
+dashboard,
+
+ORÇAMENTO:
+
+Gestão do Demonstrativo de Fluxo de Caixa
+BACK-END (sistema e banco de dados):
+Nova tabela no banco de dados: registros de entrada e saidas;
+Serviços para criar, atualizar, obter e deletar estes registros;
+Filtragem avançada para trazer registros por datas e periodos;
+Permições para quem pode manipular ou ver estes dados;
+
+FRONT-END (design e paginas no site):
+Novo item no menu: Financeiro;
+Tabela com registros de entrada e saida mensal;
+Grafico mostrando movimentação por periodo. Por padrão é anual;
+Sumario mostrando total de valores de entradas e saidas;
+Formulario para cadastro de novos registros;
+Atualizar servidor com novas implementações (hostinger)
+
+Todos esta implementações terão filtros por datas ou periodo;
+
+Horas de trabalho (aproximadamente):
+8h
+Valor hora: 34R$
+Total orçamento: 275R$
+
+Previsão da entrega: 5 dias úteis
