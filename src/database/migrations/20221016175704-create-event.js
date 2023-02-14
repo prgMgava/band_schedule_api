@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
       },
       title: {
-        type: DataTypes.STRING(5000),
+        type: DataTypes.TEXT,
       },
       cellphone: { type: DataTypes.STRING(50), allowNull: true },
       status: { type: DataTypes.STRING(25), defaultValue: 'agendado' },
@@ -42,10 +42,10 @@ module.exports = {
       company_cellphone: DataTypes.STRING(200),
       company_contact: DataTypes.STRING(200),
       company_email: DataTypes.STRING(200),
-      emphasis: DataTypes.STRING(5000),
-      observations: DataTypes.STRING(5000),
+      emphasis: DataTypes.TEXT,
+      observations: DataTypes.TEXT,
       creator: DataTypes.STRING(200),
-      expanse: DataTypes.STRING(5000),
+      expanse: DataTypes.TEXT,
     })
 
   },

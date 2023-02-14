@@ -5,6 +5,10 @@ const express = require("express");
 const routes = require("./routes");
 const compression = require("compression");
 
+const https = require('https')
+const path = require('path')
+const fs = require('fs')
+
 require("./database");
 
 const app = express();
@@ -29,4 +33,7 @@ app.use(routes);
 // 	});
 // })
 
+//sslServer.listen(3333)
+
 app.listen(process.env.API_PORT || 3333);
+
