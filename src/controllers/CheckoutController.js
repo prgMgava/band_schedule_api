@@ -13,11 +13,9 @@ module.exports = {
       const { value, owner, type } = req.body;
 
       if (!value || !owner || !type) {
-        return res
-          .status(403)
-          .json({
-            error: "Valor, tipo e reponsável do Checkout é obrigatório",
-          });
+        return res.status(403).json({
+          error: "Valor, tipo e reponsável do Checkout é obrigatório",
+        });
       }
 
       const newCheckout = {
@@ -46,7 +44,7 @@ module.exports = {
           where: {
             date: {
               [Op.gt]: startDate,
-              [Op.lt]: endDate + 'T24:00:00',
+              [Op.lt]: endDate + "T24:00:00",
             },
             id_band: {
               [Op.eq]: idBand,
@@ -56,6 +54,7 @@ module.exports = {
             },
           },
           include: [{ model: Band, as: "band" }],
+          order: [["date", "DESC"]],
         });
         return res.status(200).json(allCheckoutsFiltered);
       }
@@ -66,6 +65,7 @@ module.exports = {
             [Op.eq]: false,
           },
         },
+        order: [["date", "DESC"]],
       });
 
       return res.status(200).json(allCheckouts);
@@ -77,7 +77,10 @@ module.exports = {
   async listCheckoutById(req, res) {
     try {
       const id = req.params.id;
-      const checkout = await Checkout.findByPk(id, {include: [{ model: Band, as: "band" }],});
+      const checkout = await Checkout.findByPk(id, {
+        include: [{ model: Band, as: "band" }],
+        order: [["date", "DESC"]],
+      });
       if (!checkout) {
         return res.status(404).json({ error: "Checkout não encontrado" });
       }
@@ -92,7 +95,8 @@ module.exports = {
     try {
       const idBand = req.params.id_band;
       const allCheckoutsFiltered = await Checkout.findAll({
-		include: [{ model: Band, as: "band" }],
+        include: [{ model: Band, as: "band" }],
+        order: [["date", "DESC"]],
         where: {
           id_band: {
             [Op.eq]: idBand,
