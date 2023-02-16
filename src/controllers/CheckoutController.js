@@ -10,17 +10,17 @@ const config = require("../config/auth");
 module.exports = {
   async createCheckout(req, res) {
     try {
-      const { value, owner, type } = req.body;
+      const { value, type } = req.body;
 
-      if (!value || !owner || !type) {
+      if (!value || !type) {
         return res.status(403).json({
-          error: "Valor, tipo e reponsável do Checkout é obrigatório",
+          error: "Valor, tipo do Checkout é obrigatório",
         });
       }
 
       const newCheckout = {
         value: value,
-        owner: owner,
+        owner: req.body.owner,
         type: type,
         description: req.body.description,
         date: req.body.date,
@@ -38,13 +38,12 @@ module.exports = {
   async listAllCheckouts(req, res) {
     try {
       const { idBand, endDate, startDate } = req.query;
-
       if ((idBand, endDate, startDate)) {
         const allCheckoutsFiltered = await Checkout.findAll({
           where: {
             date: {
               [Op.gt]: startDate,
-              [Op.lt]: endDate + "T24:00:00",
+              [Op.lt]: endDate,
             },
             id_band: {
               [Op.eq]: idBand,
