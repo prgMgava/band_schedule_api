@@ -136,7 +136,7 @@ module.exports = {
         return res.status(404).json({ error: "Checkout não encontrado" });
       }
 
-      Checkout.update({ is_deleted: true }, { where: { id: id } });
+      Checkout.destroy({ where: { id: id } });
 
       return res.status(204).json({ success: "Checkout deletado com sucesso" });
     } catch (e) {
