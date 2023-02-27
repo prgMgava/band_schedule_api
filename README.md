@@ -55,17 +55,42 @@ Novas requisições:
 
 Relatórios: gerar relatórios para impressão
 
-- Exemplos de relatorios / motar relatorio final
-- PDF ou Excel
+- Exemplos de relatorios - o do video / montar relatorio final por mes, periodo e ano
+- PDF ou Excel - somente pdf
 - Lib que vao gerar relatorios:
   - https://www.papodigital.net.br/blog/criando-documentos-pdf-com-reactjs
   - https://www.youtube.com/watch?v=2zDFPM4l7Zw
 
-Novos cadastros: Fornecedores e Saídas
+Novos cadastros: Fornecedores e Saídas no checkout
 
-Novos campos na tabela checkout: responsável - estará relacionado ao fornecedor ou saída ID, evento/detalhes
+Novos campos na tabela checkout: responsável - estará relacionado ao fornecedor ou saída ID, eventos relacionados ao eventos
+
+- Configuracao impressora - entidade
 
 BUGS:
 Valor na tabela aparece sem ponto, sem formatação de moeda
 
-15'
+30'
+
+ORÇAMENTO:
+
+Impressão de relatórios
+BACK-END (sistema e banco de dados):
+Relacionamento entre entrada/saída com eventos e também fornecedores/músicos/outros
+Novos filtros com período de data: de tal dia a tal dia; filtro por eventos (para gerar a impressão)
+Sumário mostrando total de despesas e ganhos por evento dentro de um limite de data
+Nova tabela no banco de dados: fornecedores (para entradas), profissionais - músico, operador, comercial (para saídas);
+Serviços para criar, atualizar, obter e deletar estes fornecedores/profissionais;
+
+FRONT-END (design e paginas no site):
+Novos campos no formulário: selecionar fornecedor/profissional
+Novo item no menu: formulário de cadastro, edição e remoção de fornecedor/profissional
+Geração de CPF, usar os dados do banco de dados para geração de textos e tabelas
+Formulário para filtragem e impressão das entradas e saídas
+
+Horas de trabalho (aproximadamente):
+8h
+Valor hora: 34R$
+Total orçamento: 275R$
+
+Previsão da entrega: 12/03/2023
