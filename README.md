@@ -76,11 +76,11 @@ ORÇAMENTO:
 
 Impressão de relatórios
 BACK-END (sistema e banco de dados):
+Nova tabela no banco de dados: fornecedores (para entradas), profissionais - músico, operador, comercial (para saídas);
+Serviços para criar, atualizar, obter e deletar estes fornecedores/profissionais;
 Relacionamento entre entrada/saída com eventos e também fornecedores/músicos/outros
 Novos filtros com período de data: de tal dia a tal dia; filtro por eventos (para gerar a impressão)
 Sumário mostrando total de despesas e ganhos por evento dentro de um limite de data
-Nova tabela no banco de dados: fornecedores (para entradas), profissionais - músico, operador, comercial (para saídas);
-Serviços para criar, atualizar, obter e deletar estes fornecedores/profissionais;
 
 FRONT-END (design e paginas no site):
 Novos campos no formulário: selecionar fornecedor/profissional

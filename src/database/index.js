@@ -7,20 +7,22 @@ const Band = require("../models/Band");
 const Appointment = require("../models/Appointment");
 const Label = require("../models/Label");
 const Checkout = require("../models/Checkout");
+const Creditor = require("../models/Creditor");
 
 const connection = new Sequelize(dbConfig[process.env.NODE_ENV]);
 
 User.init(connection);
 Band.init(connection);
-Label.init(connection)
+Label.init(connection);
 Appointment.init(connection);
 Checkout.init(connection);
-
+Creditor.init(connection);
 
 User.associate(connection.models);
-Band.associate(connection.models)
-Label.associate(connection.models)
-Appointment.associate(connection.models)
-Checkout.associate(connection.models)
+Band.associate(connection.models);
+Label.associate(connection.models);
+Appointment.associate(connection.models);
+Checkout.associate(connection.models);
+Creditor.associate(connection.models);
 
 module.exports = connection;
