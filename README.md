@@ -50,3 +50,22 @@ Valor hora: 34R$
 Total orçamento: 275R$
 
 Previsão da entrega: 5 dias úteis
+
+Novas requisições:
+
+Relatórios: gerar relatórios para impressão
+
+- Exemplos de relatorios / motar relatorio final
+- PDF ou Excel
+- Lib que vao gerar relatorios:
+  - https://www.papodigital.net.br/blog/criando-documentos-pdf-com-reactjs
+  - https://www.youtube.com/watch?v=2zDFPM4l7Zw
+
+Novos cadastros: Fornecedores e Saídas
+
+Novos campos na tabela checkout: responsável - estará relacionado ao fornecedor ou saída ID, evento/detalhes
+
+BUGS:
+Valor na tabela aparece sem ponto, sem formatação de moeda
+
+15'
