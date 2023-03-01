@@ -25,6 +25,8 @@ module.exports = {
         description: req.body.description,
         date: req.body.date,
         id_band: req.body.id_band,
+        id_creditor: req.body.id_creditor,
+        id_appointment: req.body.id_appointment,
       };
 
       const createdCheckout = await Checkout.create(newCheckout);
