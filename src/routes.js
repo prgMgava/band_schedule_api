@@ -50,6 +50,7 @@ routes.post("/checkout", [authJwt.verifyToken, authJwt.verifyPermission, authJwt
 routes.get("/checkout", [authJwt.verifyToken, authJwt.verifyPermission], CheckoutController.listAllCheckouts);
 routes.get("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission], CheckoutController.listCheckoutById);
 routes.get("/checkout/band/:id_band", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], CheckoutController.listCheckoutByIdBand);
+routes.get("/checkout/appointment/:list", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], CheckoutController.listCheckoutByIdAppointment);
 routes.patch("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], CheckoutController.updateCheckout);
 routes.delete("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], CheckoutController.deleteCheckout);
 

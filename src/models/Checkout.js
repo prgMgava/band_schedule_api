@@ -36,7 +36,7 @@ class Checkout extends Model {
   static associate(models) {
     this.belongsTo(models.Appointment, {
       foreignKey: "id_appointment",
-      as: "appointments",
+      as: "appointment",
     });
     this.belongsTo(models.Band, { foreignKey: "id_band", as: "band" });
     this.hasOne(models.Creditor, {
