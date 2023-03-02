@@ -40,7 +40,7 @@ class Checkout extends Model {
     });
     this.belongsTo(models.Band, { foreignKey: "id_band", as: "band" });
     this.hasOne(models.Creditor, {
-      foreignKey: "id_creditor",
+      foreignKey: "id",
       as: "creditor",
     });
   }

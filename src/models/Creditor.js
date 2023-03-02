@@ -20,16 +20,12 @@ class Creditor extends Model {
       },
       {
         sequelize,
-        tableName: "Creditors",
+        tableName: "creditor",
       }
     );
   }
 
   static associate(models) {
-    this.belongsToMany(models.Checkout, {
-      foreignKey: "id_checkout",
-      as: "checkout",
-    });
   }
 }
 

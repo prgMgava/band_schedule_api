@@ -6,7 +6,7 @@ module.exports = {
     __dirname,
     "src",
     "config",
-    (process.env.DB_DIALECT = "mysql" ? "database_mysql.js" : "database.js")
-  ),
+    "database.js")
+  ,
   "migrations-path": path.resolve(__dirname, "src", "database", "migrations"),
 };

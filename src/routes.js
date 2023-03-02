@@ -6,6 +6,8 @@ const BandController = require("./controllers/BandController");
 const AppointmentController = require("./controllers/AppointmentController");
 const LabelController = require("./controllers/LabelController");
 const CheckoutController = require("./controllers/CheckoutController");
+const CreditorController = require("./controllers/CreditorController");
+
 
 
 const routes = express.Router();
@@ -50,6 +52,12 @@ routes.get("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission], Che
 routes.get("/checkout/band/:id_band", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], CheckoutController.listCheckoutByIdBand);
 routes.patch("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], CheckoutController.updateCheckout);
 routes.delete("/checkout/:id", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isSuperAdmin], CheckoutController.deleteCheckout);
-routes.get("/", (req, res) => res.json({ message: "Nice, last update - checkout finances control" }));
+
+routes.post("/creditor", [authJwt.verifyToken, authJwt.verifyPermission, authJwt.isAdmin], CreditorController.createCreditor);
+routes.get("/creditor", [authJwt.verifyToken], CreditorController.listAllCreditors);
+routes.get("/creditor/:id", [authJwt.verifyToken], CreditorController.listCreditorById);
+routes.patch("/creditor/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], CreditorController.updateCreditor);
+routes.delete("/creditor/:id", [authJwt.verifyToken, authJwt.isSuperAdmin], CreditorController.deleteCreditor);
+routes.get("/", (req, res) => res.json({ message: "Nice, last update - checkout finances control with appointments" }));
 
 module.exports = routes;
