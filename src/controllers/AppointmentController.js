@@ -159,7 +159,6 @@ module.exports = {
 
 	async listMyAppointmentsByTitle(req, res) {
 		try {
-			const id = req.params.id
 			const { title } = req.query
 			if (!title) {
 				return res.status(403).json({ error: 'Título do evento é obrigatório' })
@@ -177,7 +176,7 @@ module.exports = {
 							[Op.iLike]: `%${title}%`
 						}
 					},
-					include: { model: Band, as: 'band', where: { owner: id } }
+					include: { model: Band, as: 'band' }
 				});
 				return res.status(200).json(allAppointmentsFiltered);
 			}
