@@ -171,7 +171,7 @@ module.exports = {
 							[Op.gt]: req.query?.start_date
 						},
 						end_date: {
-							[Op.lt]: req.query?.end_date
+							[Op.lt]: req.query?.end_date + "T24:00:00"
 						},
 						title: {
 							[Op.iLike]: `%${title}%`
