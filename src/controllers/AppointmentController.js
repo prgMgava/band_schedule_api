@@ -157,6 +157,38 @@ module.exports = {
 		}
 	},
 
+	async listMyAppointmentsByTitle(req, res) {
+		try {
+			const id = req.params.id
+			const { title } = req.query
+			if (!title) {
+				return res.status(403).json({ error: 'Título do evento é obrigatório' })
+			}
+			if (req.query?.start_date && req.query?.end_date) {
+				const allAppointmentsFiltered = await Appointment.findAll({
+					where: {
+						start_date: {
+							[Op.gt]: req.query?.start_date
+						},
+						end_date: {
+							[Op.lt]: req.query?.end_date
+						},
+						title: {
+							[Op.iLike]: `%${title}%`
+						}
+					},
+					include: { model: Band, as: 'band', where: { owner: id } }
+				});
+				return res.status(200).json(allAppointmentsFiltered);
+			}
+
+			return res.status(404).json({ error: 'Compromisso não encontrado' })
+
+		} catch (e) {
+			return res.status(500).json({ error: e.toString(), fields: e.fields })
+		}
+	},
+
 	async updateAppointment(req, res) {
 		try {
 			const id = req.params.id

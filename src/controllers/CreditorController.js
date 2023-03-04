@@ -32,7 +32,6 @@ module.exports = {
   },
 
   async listAllCreditors(req, res) {
-    console.log('aqui')
     try {
       const allCreditors = await Creditor.findAll({
         where: {
