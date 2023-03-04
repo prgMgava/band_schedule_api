@@ -87,7 +87,7 @@ module.exports = {
     try {
       const id = req.params.id;
       const checkout = await Checkout.findByPk(id, {
-        include: [{ model: Band, as: "band" }],
+        include: include,
         order: [["date", "DESC"]],
       });
       if (!checkout) {
@@ -104,7 +104,7 @@ module.exports = {
     try {
       const idBand = req.params.id_band;
       const allCheckoutsFiltered = await Checkout.findAll({
-        include: [{ model: Band, as: "band" }],
+        include: include,
         order: [["date", "DESC"]],
         where: {
           id_band: {
