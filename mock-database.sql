@@ -158,29 +158,52 @@ VALUES
 '2022-11-08T15:18:00', 'Rua Alameda',
 'Bairro Republica', 'ES', 'Vitória', '123', 'Proximo a radio',1, 'Show', 'Cache', 'Minha empresa', 'Silvio Santos', '(27) 99999-9999', 'Contato da empresa', 'company@email.com', 'Destaque exemplo', 'Evento muito legal', 'admin1'  )
 
-INSERT INTO checkout (value, description, date, type, owner, id_band, is_deleted)
+INSERT INTO creditor (`name`, is_supplier)
 VALUES
-(3012.12, 'CHECKOUT A', '2023-01-01', 1, 'RESPONSAVEL', 1, false),
-(12.12, 'CHECKOUT B', '2023-01-05', 2, 'RESPONSAVEL', 1, false),
-(112.12, 'CHECKOUT C', '2023-01-10', 1, 'RESPONSAVEL', 1, false),
-(31012.12, 'CHECKOUT D', '2023-02-02', 1, 'RESPONSAVEL', 1, false),
-(312.12, 'CHECKOUT E', '2023-02-02', 1, 'RESPONSAVEL', 1, false),
-(2.12, 'CHECKOUT F', '2023-02-03', 1, 'RESPONSAVEL', 1, false),
-(512.12, 'CHECKOUT G', '2023-02-05', 1, 'RESPONSAVEL', 1, false),
-(5012.12, 'CHECKOUT H', '2023-03-03', 1, 'RESPONSAVEL', 1, false),
-(1032.12, 'CHECKOUT I', '2023-03-03', 1, 'RESPONSAVEL', 1, false),
-(1032.12, 'CHECKOUT J', '2023-03-03', 1, 'RESPONSAVEL', 1, false),
-(3012.12, 'CHECKOUT K', '2023-04-04', 1, 'RESPONSAVEL', 1, false),
-(4042.12, 'CHECKOUT L', '2023-04-04', 1, 'RESPONSAVEL', 1, false),
-(72.12, 'CHECKOUT M', '2023-05-05', 1, 'RESPONSAVEL', 1, false),
-(712.12, 'CHECKOUT N', '2023-05-05', 1, 'RESPONSAVEL', 1, false),
-(7.12, 'CHECKOUT O', '2023-05-05', 1, 'RESPONSAVEL', 1, false),
-(0.12, 'CHECKOUT P', '2023-06-06', 1, 'RESPONSAVEL', 1, false),
-(42.12, 'CHECKOUT Q', '2023-06-06', 1, 'RESPONSAVEL', 1, false),
-(43062.12, 'CHECKOUT R', '2023-06-06', 1, 'RESPONSAVEL', 1, false),
-(512.12, 'CHECKOUT S', '2023-07-07', 1, 'RESPONSAVEL', 1, false),
-(112.12, 'CHECKOUT T', '2023-08-08', 1, 'RESPONSAVEL', 1, false),
-(1012.12, 'CHECKOUT U', '2023-10-10', 1, 'RESPONSAVEL', 1, false),
-(7012.12, 'CHECKOUT V', '2023-11-11', 1, 'RESPONSAVEL', 1, false),
-(8012.12, 'CHECKOUT X', '2023-12-12', 1, 'RESPONSAVEL', 1, false),
-(112.12, 'CHECKOUT Z', '2023-12-12', 1, 'RESPONSAVEL', 1, false)
+('Baterista', FALSE),
+('Percussão', FALSE),
+('Baixista', FALSE),
+('Violão', FALSE),
+('Operador Staff', FALSE),
+('Comercial', FALSE),
+('Casa Noturna', TRUE),
+('Estadio', TRUE),
+('Teatro', TRUE)
+
+
+INSERT INTO checkout (value, description, date, type, owner, id_band, is_deleted, id_appointment, id_creator)
+VALUES
+(3012.12, 'CHECKOUT A', '2023-01-01', 1, 'RESPONSAVEL', 1, false,1, 1),
+(12.12, 'CHECKOUT B', '2023-01-05', 2, 'RESPONSAVEL', 1, false,1, 1),
+(112.12, 'CHECKOUT C', '2023-01-10', 1, 'RESPONSAVEL', 1, false,1, 1),
+(31012.12, 'CHECKOUT D', '2023-02-02', 1, 'RESPONSAVEL', 1, false,2, 2),
+(312.12, 'CHECKOUT E', '2023-02-02', 1, 'RESPONSAVEL', 1, false,2, 2),
+(2.12, 'CHECKOUT F', '2023-02-03', 1, 'RESPONSAVEL', 1, false,2, 2),
+(512.12, 'CHECKOUT G', '2023-02-05', 1, 'RESPONSAVEL', 1, false,2, 2),
+(5012.12, 'CHECKOUT H', '2023-03-03', 1, 'RESPONSAVEL', 1, false,2, 2),
+(1032.12, 'CHECKOUT I', '2023-03-03', 1, 'RESPONSAVEL', 1, false,2, 2),
+(1032.12, 'CHECKOUT J', '2023-03-03', 1, 'RESPONSAVEL', 1, false,3, 3),
+(3012.12, 'CHECKOUT K', '2023-04-04', 1, 'RESPONSAVEL', 1, false,3, 3),
+(4042.12, 'CHECKOUT L', '2023-04-04', 1, 'RESPONSAVEL', 1, false,3, 3),
+(72.12, 'CHECKOUT M', '2023-05-05', 1, 'RESPONSAVEL', 1, false,3, 3),
+(712.12, 'CHECKOUT N', '2023-05-05', 1, 'RESPONSAVEL', 1, false,3, 3),
+(7.12, 'CHECKOUT O', '2023-05-05', 1, 'RESPONSAVEL', 1, false,3, 3),
+(0.12, 'CHECKOUT P', '2023-06-06', 1, 'RESPONSAVEL', 1, false,3, 3),
+(42.12, 'CHECKOUT Q', '2023-06-06', 1, 'RESPONSAVEL', 1, false,3, 3),
+(43062.12, 'CHECKOUT R', '2023-06-06', 1, 'RESPONSAVEL', 1, false,3, 3),
+(512.12, 'CHECKOUT S', '2023-07-07', 1, 'RESPONSAVEL', 1, false,3, 3),
+(112.12, 'CHECKOUT T', '2023-08-08', 1, 'RESPONSAVEL', 1, false,4, 4),
+(1012.12, 'CHECKOUT U', '2023-10-10', 1, 'RESPONSAVEL', 1, false,4, 4),
+(7012.12, 'CHECKOUT V', '2023-11-11', 1, 'RESPONSAVEL', 1, false,4, 4),
+(8012.12, 'CHECKOUT X', '2023-12-12', 1, 'RESPONSAVEL', 1, false,4, 4),
+(112.12, 'CHECKOUT Z', '2023-12-12', 1, 'RESPONSAVEL', 1, false,4, 4);
+
+INSERT INTO creditor (name, is_supplier, is_deleted, )
+VALUES
+('Comercial', FALSE, FALSE),
+('Batera', FALSE, FALSE),
+('Percussão', FALSE, FALSE),
+('Violão', FALSE, FALSE),
+('Outros', FALSE, FALSE),
+('Baixo', FALSE, FALSE),
+('Operador Staff', FALSE, FALSE);

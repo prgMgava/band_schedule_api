@@ -9,10 +9,11 @@ class Appointment extends Model {
 					autoIncrement: true,
 					primaryKey: true,
 				},
-				title: DataTypes.TEXT,
+				title: DataTypes.STRING(5000),
 				cellphone: DataTypes.STRING(50),
 				start_date: {
 					type: DataTypes.DATE,
+
 				},
 				end_date: DataTypes.DATE,
 				street: DataTypes.STRING(50),
@@ -21,7 +22,7 @@ class Appointment extends Model {
 				city: DataTypes.STRING(50),
 				address_number: DataTypes.STRING(10),
 				address_complement: DataTypes.STRING(150),
-				status: { type: DataTypes.STRING(25), defaultValue: "agendado" },
+				status: { type: DataTypes.STRING(25), defaultValue: 'agendado' },
 				event: DataTypes.STRING(20),
 				money: DataTypes.STRING(20),
 				company_name: DataTypes.STRING(200),
@@ -29,21 +30,21 @@ class Appointment extends Model {
 				company_cellphone: DataTypes.STRING(200),
 				company_contact: DataTypes.STRING(200),
 				company_email: DataTypes.STRING(200),
-				emphasis: DataTypes.TEXT,
-				observations: DataTypes.TEXT,
+				emphasis: DataTypes.STRING(5000),
+				observations: DataTypes.STRING(5000),
 				creator: DataTypes.STRING(200),
-				expanse: DataTypes.TEXT,
+				expanse: DataTypes.STRING(5000)
 			},
 			{
 				sequelize,
-				tableName: "appointment",
+				tableName: 'appointment'
 			}
 		);
 	}
 
 	static associate(models) {
-		this.belongsTo(models.Band, { foreignKey: "id_band", as: "band" });
-		this.belongsTo(models.Label, { foreignKey: "id_label", as: "label" });
+		this.belongsTo(models.Band, { foreignKey: 'id_band', as: 'band' });
+		this.belongsTo(models.Label, { foreignKey: 'id_label', as: 'label' })
 	}
 }
 

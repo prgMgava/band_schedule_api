@@ -1,11 +1,19 @@
 const Checkout = require("../models/Checkout");
 const Band = require("../models/Band");
+const Creditor = require("../models/Creditor");
+const Appointment = require("../models/Appointment")
+
 
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 require("dotenv/config");
 
 const config = require("../config/auth");
+
+const include = [
+  { model: Band, as: "band" }, { model: Creditor, as: "creditor" },
+  { model: Appointment, as: "appointment" }
+]
 
 module.exports = {
   async createCheckout(req, res) {
@@ -25,6 +33,8 @@ module.exports = {
         description: req.body.description,
         date: req.body.date,
         id_band: req.body.id_band,
+        id_creditor: req.body.id_creditor,
+        id_appointment: req.body.id_appointment,
       };
 
       const createdCheckout = await Checkout.create(newCheckout);
@@ -52,13 +62,13 @@ module.exports = {
               [Op.eq]: false,
             },
           },
-          include: [{ model: Band, as: "band" }],
+          include,
           order: [["date", "DESC"]],
         });
         return res.status(200).json(allCheckoutsFiltered);
       }
       const allCheckouts = await Checkout.findAll({
-        include: [{ model: Band, as: "band" }],
+        include,
         where: {
           is_deleted: {
             [Op.eq]: false,
@@ -77,7 +87,7 @@ module.exports = {
     try {
       const id = req.params.id;
       const checkout = await Checkout.findByPk(id, {
-        include: [{ model: Band, as: "band" }],
+        include: include,
         order: [["date", "DESC"]],
       });
       if (!checkout) {
@@ -94,7 +104,7 @@ module.exports = {
     try {
       const idBand = req.params.id_band;
       const allCheckoutsFiltered = await Checkout.findAll({
-        include: [{ model: Band, as: "band" }],
+        include: include,
         order: [["date", "DESC"]],
         where: {
           id_band: {
@@ -107,6 +117,42 @@ module.exports = {
       return res.status(500).json({ error: e.toString(), fields: e.fields });
     }
   },
+
+  async listCheckoutByIdAppointment(req, res) {
+    try {
+      const { ids_appointments, id_band } = req.query;
+      const allCheckoutsArray = []
+      const list = ids_appointments.split(',')
+      if (list) {
+
+        const promises = await list.map(async (id) => {
+          const allCheckoutsFiltered = await Checkout.findAll({
+            include,
+            order: [["date", "DESC"]],
+            where: {
+              id_appointment: {
+                [Op.eq]: id,
+              },
+              id_band: {
+                [Op.eq]: id_band,
+              }
+            },
+          }).then((checkouts) => {
+            return checkouts.map((item) => item.dataValues)
+          });
+          return allCheckoutsArray.push(...allCheckoutsFiltered);
+        });
+        await Promise.all(promises);
+        return res.status(200).json(allCheckoutsArray);
+      }
+      return res.status(200).json([]);
+
+    } catch (e) {
+      return res.status(500).json({ error: e.toString(), fields: e.fields });
+    }
+  },
+
+
 
   async updateCheckout(req, res) {
     try {
