@@ -120,9 +120,9 @@ module.exports = {
 
   async listCheckoutByIdAppointment(req, res) {
     try {
-      const idsAppointment = req.params.list;
+      const { ids_appointments, id_band } = req.params;
       const allCheckoutsArray = []
-      const list = idsAppointment.split(',')
+      const list = ids_appointments.split(',')
       if (list) {
 
         const promises = await list.map(async (id) => {
@@ -133,6 +133,9 @@ module.exports = {
               id_appointment: {
                 [Op.eq]: id,
               },
+              id_band: {
+                [Op.eq]: id_band,
+              }
             },
           }).then((checkouts) => checkouts.map((item) => item.dataValues));
 
