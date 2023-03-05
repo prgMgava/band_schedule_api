@@ -196,4 +196,14 @@ VALUES
 (1012.12, 'CHECKOUT U', '2023-10-10', 1, 'RESPONSAVEL', 1, false,4, 4),
 (7012.12, 'CHECKOUT V', '2023-11-11', 1, 'RESPONSAVEL', 1, false,4, 4),
 (8012.12, 'CHECKOUT X', '2023-12-12', 1, 'RESPONSAVEL', 1, false,4, 4),
-(112.12, 'CHECKOUT Z', '2023-12-12', 1, 'RESPONSAVEL', 1, false,4, 4)
+(112.12, 'CHECKOUT Z', '2023-12-12', 1, 'RESPONSAVEL', 1, false,4, 4);
+
+INSERT INTO creditor (name, is_supplier, is_deleted, )
+VALUES
+('Comercial', FALSE, FALSE),
+('Batera', FALSE, FALSE),
+('Percussão', FALSE, FALSE),
+('Violão', FALSE, FALSE),
+('Outros', FALSE, FALSE),
+('Baixo', FALSE, FALSE),
+('Operador Staff', FALSE, FALSE);
