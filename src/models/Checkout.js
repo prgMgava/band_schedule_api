@@ -39,8 +39,8 @@ class Checkout extends Model {
       as: "appointment",
     });
     this.belongsTo(models.Band, { foreignKey: "id_band", as: "band" });
-    this.hasOne(models.Creditor, {
-      foreignKey: "id",
+    this.belongsTo(models.Creditor, {
+      foreignKey: "id_creditor",
       as: "creditor",
     });
   }
