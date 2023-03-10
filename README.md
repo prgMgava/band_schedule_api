@@ -70,8 +70,6 @@ Novos campos na tabela checkout: responsável - estará relacionado ao fornecedo
 BUGS:
 Valor na tabela aparece sem ponto, sem formatação de moeda
 
-30'
-
 ORÇAMENTO:
 
 Impressão de relatórios
@@ -94,5 +92,3 @@ Valor hora: 34R$
 Total orçamento: 275R$
 
 Previsão da entrega: 12/03/2023
-
-TODO: criar migration, controller fornecedor, editar controller do checkout e testar
